@@ -3,6 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/bottom_tab_index.dart';
 import '../providers/bottom_tab_index.dart';
+import 'mypage/mypage.dart';
+import 'note/note.dart';
+import 'recipes/recipes.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,16 +18,12 @@ class Home extends ConsumerWidget {
 
     Widget _body(int index) {
       switch (index) {
-        case BottomTabIndex.home:
-          return Center(
-            child: Text('center'),
-          );
-        case BottomTabIndex.recipe:
-          return Center(child: Text('recipe'));
+        case BottomTabIndex.note:
+          return const Note();
+        case BottomTabIndex.recipes:
+          return const Recipes();
         case BottomTabIndex.mypage:
-          return Center(
-            child: Text('mypage'),
-          );
+          return const MyPage();
         default:
           return const SizedBox.shrink();
       }
