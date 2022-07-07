@@ -13,15 +13,27 @@ class Home extends ConsumerWidget {
     final StateController<int> bottomTabIndexCtl =
         ref.watch(bottomTabIndexProvider.notifier);
 
+    Widget _body(int index) {
+      switch(index){
+        case BottomTabIndex.home:
+          return Center(child: Text('center'),);
+        case BottomTabIndex.recipe:
+          return Center(child: Text('recipe'));
+        case BottomTabIndex.mypage:
+          return Center(child: Text('mypage'),);
+        default:
+          return const SizedBox.shrink();
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rnote'),
       ),
-      body: const Center(
-        child: Text('Center'),
-      ),
+      body: _body(bottomTabIndex),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: bottomTabIndex,
+        onTap: (int index) => bottomTabIndexCtl.update((_) => index),
         selectedItemColor: Colors.orangeAccent,
         selectedLabelStyle: const TextStyle(color: Colors.orangeAccent),
         items: const <BottomNavigationBarItem>[
