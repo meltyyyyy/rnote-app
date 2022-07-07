@@ -14,13 +14,17 @@ class Home extends ConsumerWidget {
         ref.watch(bottomTabIndexProvider.notifier);
 
     Widget _body(int index) {
-      switch(index){
+      switch (index) {
         case BottomTabIndex.home:
-          return Center(child: Text('center'),);
+          return Center(
+            child: Text('center'),
+          );
         case BottomTabIndex.recipe:
           return Center(child: Text('recipe'));
         case BottomTabIndex.mypage:
-          return Center(child: Text('mypage'),);
+          return Center(
+            child: Text('mypage'),
+          );
         default:
           return const SizedBox.shrink();
       }
