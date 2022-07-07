@@ -1,11 +1,14 @@
+import 'ingredient.dart';
+
 class Recipe {
   Recipe(
       {required this.id,
       required this.name,
-      required this.unit,
-      this.quantity});
+      required this.ingredients,
+      this.memo = ''});
   int id;
   String name;
-  String unit;
-  String? quantity;
+  List<Ingredient> ingredients;
+  DateTime? date;
+  String memo;
 }
