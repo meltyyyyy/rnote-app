@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/bottom_tab_index.dart';
+import '../providers/bottom_tab_index.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final int bottomTabIndex = ref.watch(bottomTabIndexProvider);
+    final StateController<int> bottomTabIndexCtl =
+        ref.watch(bottomTabIndexProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rnote'),
@@ -16,7 +21,7 @@ class Home extends ConsumerWidget {
         child: Text('Center'),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: BottomTabIndex.home,
+        currentIndex: bottomTabIndex,
         selectedItemColor: Colors.orangeAccent,
         selectedLabelStyle: const TextStyle(color: Colors.orangeAccent),
         items: const <BottomNavigationBarItem>[

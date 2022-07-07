@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'pages/home.dart';
 
 void main() {
-  runApp(const RnoteApp());
+  runApp(const ProviderScope(child: RnoteApp()));
 }
 
 class RnoteApp extends StatelessWidget {
