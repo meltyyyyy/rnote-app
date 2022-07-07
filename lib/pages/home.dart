@@ -1,45 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Home extends StatefulWidget {
+class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Demo'),
+        title: const Text('Rnote'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: const Center(
+        child: Text('Center'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        selectedItemColor: Colors.orangeAccent,
+        selectedLabelStyle: const TextStyle(color: Colors.orangeAccent),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              activeIcon: Icon(Icons.home, color: Colors.orangeAccent),
+              label: 'home',
+              tooltip: 'ホーム画面'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.set_meal),
+              activeIcon: Icon(Icons.set_meal, color: Colors.orangeAccent),
+              label: 'recipe',
+              tooltip: 'レシピ'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              activeIcon: Icon(Icons.person, color: Colors.orangeAccent),
+              label: 'mypage',
+              tooltip: 'マイページ'),
+        ],
       ),
     );
   }
