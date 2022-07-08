@@ -3,16 +3,14 @@ import 'package:google_vision/google_vision.dart';
 import 'package:google_vision/src/model/localized_object_annotation.dart';
 
 class TextRecognizer {
-  TextRecognizer({required this.image});
-
-  final Image image;
   Image? croppedImage;
   Image? labeledImage;
 
   final String _jwt = dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!;
 
-  Future<Image?> annotate() async {
+  Future<Image?> annotate(String filePath) async {
     final GoogleVision _googleVision = await GoogleVision.withJwt(_jwt);
+    final Image image = Image.fromFilePath(filePath);
 
     // Cropping an image to save the image to upload
     croppedImage = image.copyCrop(70, 30, 640, 480);
