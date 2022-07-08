@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "532036606234",
+    "project_id": "rnote-7ea67",
+    "storage_bucket": "rnote-7ea67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532036606234:android:be7cf7267fba622aa2b4a3",
+        "android_client_info": {
+          "package_name": "com.example.rnote_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532036606234-0qojgs6dibtf89ah4t408v94tipalatj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-hMM9bbktcfH3hi7pJcJ5KbH05Re_l44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532036606234-0qojgs6dibtf89ah4t408v94tipalatj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "532036606234-m6n8m19ivbpo9goeomjmuocuotjuubln.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rnoteApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
