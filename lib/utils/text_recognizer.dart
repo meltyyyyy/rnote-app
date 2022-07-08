@@ -14,22 +14,23 @@ class TextRecognizer {
 
     // Cropping an image to save the image to upload
     croppedImage = image.copyCrop(70, 30, 640, 480);
-    final AnnotationRequests requests = AnnotationRequests(requests: <AnnotationRequest>[
+    final AnnotationRequests requests =
+        AnnotationRequests(requests: <AnnotationRequest>[
       AnnotationRequest(
           image: croppedImage!,
-          features: <Feature>[
-            Feature(maxResults: -1, type: 'TEXT_DETECTION')
-          ])
+          features: <Feature>[Feature(maxResults: -1, type: 'TEXT_DETECTION')])
     ]);
 
     // TODO(meltyyyyy): add error handle
-    final AnnotatedResponses responses = await _googleVision.annotate(requests: requests);
+    final AnnotatedResponses responses =
+        await _googleVision.annotate(requests: requests);
 
     for (AnnotateImageResponse response in responses.responses) {
-      for (LocalizedObjectAnnotation annotation in response.localizedObjectAnnotations){
+      for (LocalizedObjectAnnotation annotation
+          in response.localizedObjectAnnotations) {
         print(annotation.name);
       }
-      for (LabelAnnotation annotation in response.labelAnnotations){
+      for (LabelAnnotation annotation in response.labelAnnotations) {
         print(annotation.description);
       }
     }
