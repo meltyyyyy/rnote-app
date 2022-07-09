@@ -31,8 +31,6 @@ class Note extends HookConsumerWidget {
                 await picker.pickImage(source: ImageSource.gallery);
             if (file != null) {
               filePathCtl.update((_) => file.path);
-              final TextRecognizer recognizer = TextRecognizer();
-              recognizer.readJson(filePath);
             }
           }),
     );
