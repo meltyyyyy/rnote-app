@@ -13,12 +13,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   hooks_riverpod: ^1.0.4
   flutter_hooks: ^0.18.5+1
-  google_vision: ^1.0.4
   image_picker: ^0.8.5+3
   flutter_dotenv: ^5.0.2
-  jose: ^0.3.2
-  crypto_keys: ^0.3.0
-  dio: ^4.0.6
+  googleapis: ^9.1.0
 
 dev_dependencies:
   flutter_test:
