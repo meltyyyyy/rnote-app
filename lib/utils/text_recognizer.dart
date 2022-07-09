@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto_keys/crypto_keys.dart';
@@ -12,11 +13,11 @@ class TextRecognizer {
   Image? labeledImage;
 
   final String _jwt = dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!;
+  static final Dio dio = Dio();
 
   void readJson(String filePath) async {
-    print(File(_jwt).readAsBytesSync());
-    // final GoogleVision _googleVision = await GoogleVision.withGenerator(generator);
-    print("#### ####");
+    const String scope = 'https://www.googleapis.com/auth/cloud-vision';
+    Generator(credentialsFile: _jwt, scope: scope, dio: dio);
   }
 
   Future<Image?> annotate(String filePath) async {
@@ -49,30 +50,43 @@ class TextRecognizer {
   }
 }
 
-class JwtGenerator implements TokenGenerator {
+class Generator implements TokenGenerator {
+  Generator(
+      {required this.credentialsFile, required this.scope, required this.dio})
+      : jwtCredentials = JwtCredentials.fromJson(<String, dynamic>{
+          'settings': jsonDecode(File(credentialsFile).readAsStringSync()),
+          'scope': scope
+        });
+
   final JwtCredentials jwtCredentials;
   final Dio dio;
+  final String credentialsFile;
+  final String scope;
 
   @override
   Future<Token> generate() {
-    final JsonWebKey key = JsonWebKey.fromPem(jwtCredentials.settings.privateKey);
+    final JsonWebKey key =
+        JsonWebKey.fromPem(jwtCredentials.settings.privateKey);
 
     final KeyPair privateKey = key.cryptoKeyPair;
 
-    final Signer<PrivateKey> signer = privateKey.createSigner(algorithms.signing.rsa.sha256);
+    final Signer<PrivateKey> signer =
+        privateKey.createSigner(algorithms.signing.rsa.sha256);
 
-    final String header = Util.base64GCloudString('{"alg":"RS256","typ":"JWT"}');
+    final String header =
+        Util.base64GCloudString('{"alg":"RS256","typ":"JWT"}');
 
     final String claim = Util.base64GCloudString(
         '{"iss": "${jwtCredentials.settings.clientEmail}","scope": "${jwtCredentials.scope}","aud": "https://www.googleapis.com/oauth2/v4/token", "exp": ${Util.unixTimeStamp(DateTime.now().add(Duration(seconds: 3599)))},"iat": ${Util.unixTimeStamp(DateTime.now())}}');
 
     final Signature signature = signer.sign('$header.$claim'.codeUnits);
 
-    final String jwt = '$header.$claim.${Util.base64GCloudList(signature.data)}';
+    final String jwt =
+        '$header.$claim.${Util.base64GCloudList(signature.data)}';
 
     final OAuthClient oAuthClient = OAuthClient(dio);
 
-    return await oAuthClient.getToken({
+    return oAuthClient.getToken(<String, dynamic>{
       'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer',
       'assertion': jwt
     });
