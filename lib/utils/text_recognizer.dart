@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:crypto_keys/crypto_keys.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_vision/google_vision.dart';
 import 'package:google_vision/src/model/localized_object_annotation.dart';
@@ -49,23 +51,24 @@ class TextRecognizer {
 
 class JwtGenerator implements TokenGenerator {
   final JwtCredentials jwtCredentials;
+  final Dio dio;
 
   @override
   Future<Token> generate() {
-    final key = JsonWebKey.fromPem(jwtCredentials.settings.privateKey);
+    final JsonWebKey key = JsonWebKey.fromPem(jwtCredentials.settings.privateKey);
 
-    final privateKey = key.cryptoKeyPair;
+    final KeyPair privateKey = key.cryptoKeyPair;
 
-    final signer = privateKey.createSigner(algorithms.signing.rsa.sha256);
+    final Signer<PrivateKey> signer = privateKey.createSigner(algorithms.signing.rsa.sha256);
 
-    final header = Util.base64GCloudString('{"alg":"RS256","typ":"JWT"}');
+    final String header = Util.base64GCloudString('{"alg":"RS256","typ":"JWT"}');
 
-    final claim = Util.base64GCloudString(
+    final String claim = Util.base64GCloudString(
         '{"iss": "${jwtCredentials.settings.clientEmail}","scope": "${jwtCredentials.scope}","aud": "https://www.googleapis.com/oauth2/v4/token", "exp": ${Util.unixTimeStamp(DateTime.now().add(Duration(seconds: 3599)))},"iat": ${Util.unixTimeStamp(DateTime.now())}}');
 
-    final signature = signer.sign('$header.$claim'.codeUnits);
+    final Signature signature = signer.sign('$header.$claim'.codeUnits);
 
-    final jwt = '$header.$claim.${Util.base64GCloudList(signature.data)}';
+    final String jwt = '$header.$claim.${Util.base64GCloudList(signature.data)}';
 
     final OAuthClient oAuthClient = OAuthClient(dio);
 
