@@ -32,7 +32,7 @@ class Note extends HookConsumerWidget {
             if (file != null) {
               filePathCtl.update((_) => file.path);
               final TextRecognizer recognizer = TextRecognizer();
-              recognizer.annotate(filePath);
+              recognizer.readJson(filePath);
             }
           }),
     );

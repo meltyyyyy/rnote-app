@@ -16,6 +16,7 @@ dependencies:
   google_vision: ^1.0.4
   image_picker: ^0.8.5+3
   flutter_dotenv: ^5.0.2
+  jose: ^0.3.2
 
 dev_dependencies:
   flutter_test:

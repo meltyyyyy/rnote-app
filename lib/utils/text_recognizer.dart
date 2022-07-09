@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_vision/google_vision.dart';
 import 'package:google_vision/src/model/localized_object_annotation.dart';
@@ -8,7 +10,14 @@ class TextRecognizer {
 
   final String _jwt = dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!;
 
+  void readJson(String filePath) async {
+    print(File(_jwt).readAsBytesSync());
+    // final GoogleVision _googleVision = await GoogleVision.withGenerator(generator);
+    print("#### ####");
+  }
+
   Future<Image?> annotate(String filePath) async {
+    // GoogleVision.withGenerator();
     final GoogleVision _googleVision = await GoogleVision.withJwt(_jwt);
     final Image image = Image.fromFilePath(filePath);
 
@@ -34,5 +43,14 @@ class TextRecognizer {
         print(annotation.description);
       }
     }
+  }
+}
+
+class JwtGenerator implements TokenGenerator {
+
+  @override
+  Future<Token> generate() {
+    // TODO: implement generate
+    throw UnimplementedError();
   }
 }
