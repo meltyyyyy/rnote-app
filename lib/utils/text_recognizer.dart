@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_vision/google_vision.dart';
 import 'package:google_vision/src/model/localized_object_annotation.dart';
+import 'package:jose/jose.dart';
 
 class TextRecognizer {
   Image? croppedImage;
@@ -47,10 +48,30 @@ class TextRecognizer {
 }
 
 class JwtGenerator implements TokenGenerator {
+  final JwtCredentials jwtCredentials;
 
   @override
   Future<Token> generate() {
-    // TODO: implement generate
-    throw UnimplementedError();
+    final key = JsonWebKey.fromPem(jwtCredentials.settings.privateKey);
+
+    final privateKey = key.cryptoKeyPair;
+
+    final signer = privateKey.createSigner(algorithms.signing.rsa.sha256);
+
+    final header = Util.base64GCloudString('{"alg":"RS256","typ":"JWT"}');
+
+    final claim = Util.base64GCloudString(
+        '{"iss": "${jwtCredentials.settings.clientEmail}","scope": "${jwtCredentials.scope}","aud": "https://www.googleapis.com/oauth2/v4/token", "exp": ${Util.unixTimeStamp(DateTime.now().add(Duration(seconds: 3599)))},"iat": ${Util.unixTimeStamp(DateTime.now())}}');
+
+    final signature = signer.sign('$header.$claim'.codeUnits);
+
+    final jwt = '$header.$claim.${Util.base64GCloudList(signature.data)}';
+
+    final OAuthClient oAuthClient = OAuthClient(dio);
+
+    return await oAuthClient.getToken({
+      'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      'assertion': jwt
+    });
   }
 }
