@@ -28,3 +28,4 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - "rnote-355708-a04964504799.json"

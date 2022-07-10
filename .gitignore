@@ -53,5 +53,5 @@ rnote-355708-a04964504799.json
 .env
 
 # Firebase related
-GoogleService-Info.plist
-google-services.json
+ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
