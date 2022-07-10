@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis_auth/auth_io.dart';
-import 'package:http';
+import 'package:http/http.dart' as http;
 
 
 class GoogleVision {
@@ -11,13 +11,15 @@ class GoogleVision {
 
   /// authenticate with jwt
   static Future<GoogleVision> withJwt([String scope = 'https://www.googleapis.com/auth/cloud-vision']) async {
-    GoogleVision vision = GoogleVision();
     String _json = await rootBundle.loadString(dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!);
     ServiceAccountCredentials accountCredentials = ServiceAccountCredentials.fromJson(jsonDecode(_json));
     List<String> scopes = <String>[scope];
 
-    var client = http
+    http.Client client = http.Client();
+    AccessCredentials credentials = await obtainAccessCredentialsViaServiceAccount(accountCredentials, scopes, client);
 
-    return vision;
+    client.close();
+
+    return GoogleVision();
   }
 }

@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../providers/note/image_file.dart';
+import '../../utils/google_vision/google_vision.dart';
 import '../../utils/text_recognizer.dart';
 
 class Note extends HookConsumerWidget {
@@ -31,6 +32,7 @@ class Note extends HookConsumerWidget {
                 await picker.pickImage(source: ImageSource.gallery);
             if (file != null) {
               filePathCtl.update((_) => file.path);
+              GoogleVision.withJwt();
             }
           }),
     );
