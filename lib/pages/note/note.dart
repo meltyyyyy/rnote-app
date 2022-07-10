@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -32,7 +34,11 @@ class Note extends HookConsumerWidget {
                 await picker.pickImage(source: ImageSource.gallery);
             if (file != null) {
               filePathCtl.update((_) => file.path);
-              GoogleVision.withJwt();
+              final gv = await GoogleVision.withJwt();
+              Image image = Image.file(File(filePath));
+              Uint8List imageBytes = await File(file.path).readAsBytes();
+              String base64Image = base64Encode(imageBytes);
+              gv.annotate(base64Image);
             }
           }),
     );
