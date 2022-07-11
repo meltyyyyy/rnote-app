@@ -18,7 +18,8 @@ class _VisionClient implements VisionClient {
   String? baseUrl;
 
   @override
-  Future<dynamic> annotate(authorization, contentType, params) async {
+  Future<AnnotatedResponses> annotate(
+      authorization, contentType, params) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
@@ -28,15 +29,16 @@ class _VisionClient implements VisionClient {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(params);
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'POST',
-            headers: _headers,
-            extra: _extra,
-            contentType: contentType)
-        .compose(_dio.options, '/images:annotate',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AnnotatedResponses>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: contentType)
+            .compose(_dio.options, '/images:annotate',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AnnotatedResponses.fromJson(_result.data!);
     return value;
   }
 

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../models/annotated_responses.dart';
+
 part 'vision.g.dart';
 
 @RestApi(baseUrl: 'https://vision.googleapis.com/v1')
