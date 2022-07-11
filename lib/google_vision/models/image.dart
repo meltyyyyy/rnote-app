@@ -6,32 +6,32 @@ import 'package:image/image.dart' as img;
 import 'package:universal_io/io.dart';
 
 class Image {
+
+  factory Image.fromDecodedImage(img.Image image) =>
+      Image(Uint8List.fromList(img.encodeJpg(image).toList()));
+
+  factory Image.fromJson(Map<String, dynamic> json) =>
+      Image.fromBase64(json['content'] as String);
+
+  factory Image.fromFilePath(String filePath) => Image.fromFile(File(filePath));
+
+  factory Image.fromBase64(String encodedImage) =>
+      Image(base64Decode(encodedImage));
+
+  Image(this.encodedBytes)
+      : content = base64Encode(encodedBytes),
+        _decodedBytes = img.decodeImage(encodedBytes);
+
+  factory Image.fromFile(File imageFile) => Image(imageFile.readAsBytesSync());
   final Uint8List encodedBytes;
 
   final String content;
 
   img.Image? _decodedBytes;
 
-  Image(this.encodedBytes)
-      : content = base64Encode(encodedBytes),
-        _decodedBytes = img.decodeImage(encodedBytes);
-
   int get height => _decodedBytes!.height;
 
   int get width => _decodedBytes!.width;
-
-  factory Image.fromFilePath(String filePath) => Image.fromFile(File(filePath));
-
-  factory Image.fromFile(File imageFile) => Image(imageFile.readAsBytesSync());
-
-  factory Image.fromDecodedImage(img.Image image) =>
-      Image(Uint8List.fromList(img.encodeJpg(image).toList()));
-
-  factory Image.fromBase64(String encodedImage) =>
-      Image(base64Decode(encodedImage));
-
-  factory Image.fromJson(Map<String, dynamic> json) =>
-      Image.fromBase64(json['content'] as String);
 
   Map<String, dynamic> toJson() =>
       <String, dynamic>{'content': base64Encode(encodedBytes)};
