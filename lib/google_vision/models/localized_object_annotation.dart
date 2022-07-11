@@ -9,15 +9,15 @@ part 'localized_object_annotation.g.dart';
 ///Set of detected objects with bounding boxes.
 @JsonSerializable(explicitToJson: true)
 class LocalizedObjectAnnotation {
-
   LocalizedObjectAnnotation(
       {required this.mid,
-        required this.name,
-        required this.score,
-        required this.boundingPoly});
+      required this.name,
+      required this.score,
+      required this.boundingPoly});
 
   factory LocalizedObjectAnnotation.fromJson(Map<String, dynamic> json) =>
       _$LocalizedObjectAnnotationFromJson(json);
+
   ///Object ID that should align with EntityAnnotation mid.
   final String mid;
 

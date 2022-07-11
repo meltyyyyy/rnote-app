@@ -15,11 +15,11 @@ part 'bounding_poly.g.dart';
 ///appears in the image to be annotated.
 @JsonSerializable()
 class BoundingPoly {
-
   BoundingPoly({required this.normalizedVertices, required this.vertices});
 
   factory BoundingPoly.fromJson(Map<String, dynamic> json) =>
       _$BoundingPolyFromJson(json);
+
   ///The bounding polygon normalized vertices.
   @JsonKey(defaultValue: <NormalizedVertex>[])
   final List<NormalizedVertex> normalizedVertices;

@@ -10,7 +10,6 @@ part 'annotated_response.g.dart';
 ///Individual responses to image annotation requests within the batch.
 @JsonSerializable(explicitToJson: true)
 class AnnotatedResponse {
-
   AnnotatedResponse(
       {this.localizedObjectAnnotationList, this.labelAnnotationList});
 

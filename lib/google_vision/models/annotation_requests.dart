@@ -10,7 +10,6 @@ part 'annotation_requests.g.dart';
 ///image, with user-requested features, and with context information.
 @JsonSerializable()
 class AnnotationRequests {
-
   AnnotationRequests({
     required this.requests,
   });

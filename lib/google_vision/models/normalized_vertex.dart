@@ -8,11 +8,11 @@ part 'normalized_vertex.g.dart';
 ///in the same scale as the original image.
 @JsonSerializable()
 class NormalizedVertex {
-
   NormalizedVertex({required this.x, required this.y});
 
   factory NormalizedVertex.fromJson(Map<String, dynamic> json) =>
       _$NormalizedVertexFromJson(json);
+
   ///X coordinate.
   @JsonKey(defaultValue: 0.0)
   final double x;

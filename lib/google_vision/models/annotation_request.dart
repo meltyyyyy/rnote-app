@@ -8,12 +8,12 @@ part 'annotation_request.g.dart';
 ///Individual image annotation requests for this batch.
 @JsonSerializable()
 class AnnotationRequest {
-
   AnnotationRequest(
       {required this.image, required this.features, this.imageContext});
 
   factory AnnotationRequest.fromJson(Map<String, dynamic> json) =>
       _$AnnotationRequestFromJson(json);
+
   ///The image to be processed.
   final Image image;
 

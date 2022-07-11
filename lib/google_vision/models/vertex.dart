@@ -8,10 +8,10 @@ part 'vertex.g.dart';
 ///in the same scale as the original image.
 @JsonSerializable()
 class Vertex {
-
   Vertex({required this.x, required this.y});
 
   factory Vertex.fromJson(Map<String, dynamic> json) => _$VertexFromJson(json);
+
   ///X coordinate.
   @JsonKey(defaultValue: 0)
   final int x;

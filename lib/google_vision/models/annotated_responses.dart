@@ -9,7 +9,6 @@ part 'annotated_responses.g.dart';
 ///Response to a batch image annotation request.
 @JsonSerializable(explicitToJson: true)
 class AnnotatedResponses {
-
   AnnotatedResponses({
     required this.responses,
   });

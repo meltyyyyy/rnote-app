@@ -9,11 +9,11 @@ part 'position.g.dart';
 ///are in the same scale as the original image.
 @JsonSerializable()
 class Position {
-
   Position({required this.x, required this.y, required this.z});
 
   factory Position.fromJson(Map<String, dynamic> json) =>
       _$PositionFromJson(json);
+
   ///X coordinate.
   final double x;
 

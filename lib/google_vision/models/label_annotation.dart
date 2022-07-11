@@ -7,15 +7,15 @@ part 'label_annotation.g.dart';
 ///Set of detected labels
 @JsonSerializable()
 class LabelAnnotation {
-
   LabelAnnotation(
       {required this.mid,
-        required this.description,
-        required this.score,
-        required this.topicality});
+      required this.description,
+      required this.score,
+      required this.topicality});
 
   factory LabelAnnotation.fromJson(Map<String, dynamic> json) =>
       _$LabelAnnotationFromJson(json);
+
   ///Object ID that should align with EntityAnnotation mid.
   final String mid;
 
