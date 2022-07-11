@@ -20,6 +20,7 @@ dependencies:
   http: ^0.13.4
   json_annotation: ^4.6.0
   image: ^3.2.0
+  universal_io: ^2.0.4
 
 dev_dependencies:
   flutter_test:
