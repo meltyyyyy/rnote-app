@@ -5,17 +5,17 @@ import 'package:json_annotation/json_annotation.dart';
 import 'label_annotation.dart';
 import 'localized_object_annotation.dart';
 
-part 'annotate_image_response.g.dart';
+part 'annotated_response.g.dart';
 
 ///Individual responses to image annotation requests within the batch.
 @JsonSerializable(explicitToJson: true)
-class AnnotateImageResponse {
+class AnnotatedResponse {
 
-  AnnotateImageResponse(
+  AnnotatedResponse(
       {this.localizedObjectAnnotationList, this.labelAnnotationList});
 
-  factory AnnotateImageResponse.fromJson(Map<String, dynamic> json) =>
-      _$AnnotateImageResponseFromJson(json);
+  factory AnnotatedResponse.fromJson(Map<String, dynamic> json) =>
+      _$AnnotatedResponseFromJson(json);
 
   @JsonKey(name: 'localizedObjectAnnotations')
   final List<LocalizedObjectAnnotation>? localizedObjectAnnotationList;
@@ -31,7 +31,7 @@ class AnnotateImageResponse {
   List<LabelAnnotation> get labelAnnotations =>
       labelAnnotationList ?? <LabelAnnotation>[];
 
-  Map<String, dynamic> toJson() => _$AnnotateImageResponseToJson(this);
+  Map<String, dynamic> toJson() => _$AnnotatedResponseToJson(this);
 
   @override
   String toString() => jsonEncode(toJson());
