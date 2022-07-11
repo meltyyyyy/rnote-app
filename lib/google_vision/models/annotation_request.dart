@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'annotation_request.g.dart';
 
 ///Individual image annotation requests for this batch.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class AnnotationRequest {
 
   AnnotationRequest(
