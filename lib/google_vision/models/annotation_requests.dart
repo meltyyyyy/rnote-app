@@ -8,7 +8,7 @@ part 'annotation_requests.g.dart';
 
 ///Request for performing Google Cloud Vision API tasks over a user-provided
 ///image, with user-requested features, and with context information.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class AnnotationRequests {
 
   AnnotationRequests({

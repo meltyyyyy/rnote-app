@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'label_annotation.g.dart';
 
 ///Set of detected labels
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class LabelAnnotation {
 
   LabelAnnotation(
