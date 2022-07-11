@@ -25,6 +25,7 @@ dependencies:
   dio: ^4.0.6
   color: ^3.0.0
   crypto_keys: ^0.3.0
+  jose: ^0.3.2
 
 dev_dependencies:
   flutter_test:
