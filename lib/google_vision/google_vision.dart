@@ -1,5 +1,3 @@
-
-
 import 'package:color/color.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +12,6 @@ import 'models/vertex.dart';
 import 'token_generator.dart';
 
 class GoogleVision {
-
   GoogleVision() : _rest = VisionClient(dio);
   final VisionClient _rest;
 

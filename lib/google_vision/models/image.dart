@@ -6,7 +6,6 @@ import 'package:image/image.dart' as img;
 import 'package:universal_io/io.dart';
 
 class Image {
-
   factory Image.fromDecodedImage(img.Image image) =>
       Image(Uint8List.fromList(img.encodeJpg(image).toList()));
 

@@ -11,11 +11,11 @@ part 'feature.g.dart';
 ///specified in the features list.
 @JsonSerializable()
 class Feature {
-
   Feature({required this.maxResults, required this.type});
 
   factory Feature.fromJson(Map<String, dynamic> json) =>
       _$FeatureFromJson(json);
+
   ///Maximum number of results of this type. Does not apply to TEXT_DETECTION,
   ///DOCUMENT_TEXT_DETECTION, or CROP_HINTS.
   final int maxResults;

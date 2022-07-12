@@ -19,9 +19,7 @@ class ImageContext {
   ///Parameters for text detection and document text detection.
   final TextDetectionParams? textDetectionParams;
 
-  ImageContext(
-      {this.languageHints,
-        this.textDetectionParams});
+  ImageContext({this.languageHints, this.textDetectionParams});
 
   factory ImageContext.fromJson(Map<String, dynamic> json) =>
       _$ImageContextFromJson(json);

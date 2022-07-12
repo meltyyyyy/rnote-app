@@ -8,7 +8,6 @@ part 'jwt_credentials.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class JwtCredentials {
-
   JwtCredentials({required this.settings, required this.scope});
 
   factory JwtCredentials.fromJson(Map<String, dynamic> json) =>

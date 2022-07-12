@@ -6,18 +6,17 @@ part 'json_settings.g.dart';
 
 @JsonSerializable()
 class JsonSettings {
-
   JsonSettings(
       {required this.type,
-        required this.projectId,
-        required this.projectKeyId,
-        required this.privateKey,
-        required this.clientEmail,
-        required this.clientId,
-        required this.authUri,
-        required this.tokenUri,
-        required this.authProviderX509CertUrl,
-        required this.clientX509CertUrl});
+      required this.projectId,
+      required this.projectKeyId,
+      required this.privateKey,
+      required this.clientEmail,
+      required this.clientId,
+      required this.authUri,
+      required this.tokenUri,
+      required this.authProviderX509CertUrl,
+      required this.clientX509CertUrl});
 
   factory JsonSettings.fromJson(Map<String, dynamic> json) =>
       _$JsonSettingsFromJson(json);

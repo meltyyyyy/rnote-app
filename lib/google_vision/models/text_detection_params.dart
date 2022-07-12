@@ -7,11 +7,11 @@ part 'text_detection_params.g.dart';
 ///Parameters for text detection and document text detection.
 @JsonSerializable()
 class TextDetectionParams {
-
   factory TextDetectionParams.fromJson(Map<String, dynamic> json) =>
       _$TextDetectionParamsFromJson(json);
 
   TextDetectionParams({required this.enableTextDetectionConfidenceScore});
+
   ///By default, Cloud Vision API only includes confidence score for
   ///DOCUMENT_TEXT_DETECTION result. Set the flag to true to include confidence
   ///score for TEXT_DETECTION as well.
