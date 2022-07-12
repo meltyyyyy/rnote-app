@@ -34,8 +34,8 @@ class Note extends HookConsumerWidget {
                 await picker.pickImage(source: ImageSource.gallery);
             if (file != null) {
               filePathCtl.update((_) => file.path);
-              final gv = await GoogleVision.withJwt();
-              Image image = Image.file(File(filePath));
+              final TextRecognizer recognizer = TextRecognizer();
+              recognizer.recognize(file);
             }
           }),
     );

@@ -6,6 +6,10 @@ import 'package:image/image.dart' as img;
 import 'package:universal_io/io.dart';
 
 class Image {
+
+  Image(this.encodedBytes)
+      : content = base64Encode(encodedBytes),
+        _decodedBytes = img.decodeImage(encodedBytes);
   factory Image.fromDecodedImage(img.Image image) =>
       Image(Uint8List.fromList(img.encodeJpg(image).toList()));
 
@@ -17,11 +21,8 @@ class Image {
   factory Image.fromBase64(String encodedImage) =>
       Image(base64Decode(encodedImage));
 
-  Image(this.encodedBytes)
-      : content = base64Encode(encodedBytes),
-        _decodedBytes = img.decodeImage(encodedBytes);
-
   factory Image.fromFile(File imageFile) => Image(imageFile.readAsBytesSync());
+
   final Uint8List encodedBytes;
 
   final String content;
