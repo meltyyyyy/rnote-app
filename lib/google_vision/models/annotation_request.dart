@@ -1,7 +1,10 @@
 import 'dart:convert';
 
-import 'package:googleapis/vision/v1.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'feature.dart';
+import 'image.dart';
+import 'image_context.dart';
 
 part 'annotation_request.g.dart';
 

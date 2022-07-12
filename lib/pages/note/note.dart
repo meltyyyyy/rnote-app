@@ -7,8 +7,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../google_vision/google_vision.dart';
 import '../../providers/note/image_file.dart';
-import '../../utils/google_vision/google_vision.dart';
 import '../../utils/text_recognizer.dart';
 
 class Note extends HookConsumerWidget {
@@ -36,9 +36,6 @@ class Note extends HookConsumerWidget {
               filePathCtl.update((_) => file.path);
               final gv = await GoogleVision.withJwt();
               Image image = Image.file(File(filePath));
-              Uint8List imageBytes = await File(file.path).readAsBytes();
-              String base64Image = base64Encode(imageBytes);
-              gv.annotate(base64Image);
             }
           }),
     );
