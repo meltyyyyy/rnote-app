@@ -44,6 +44,5 @@ class VisionImage extends Image {
   VisionImage copyCrop(int x, int y, int w, int h) =>
       VisionImage.fromDecodedImage(img.copyCrop(_decodedBytes!, x, y, w, h));
 
-  Future<void> writeAsJpeg(String filePath) async =>
-      File(filePath).writeAsBytes(img.encodeJpg(_decodedBytes!));
+  String get toBase64Image => base64Encode(img.encodeJpg(_decodedBytes!));
 }

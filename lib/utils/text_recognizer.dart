@@ -12,20 +12,36 @@ class TextRecognizer {
   TextRecognizer()
       : assert(dotenv.env['GOOGLE_APPLICATION_CREDENTIALS'] != null);
 
-  Future<void> recognize(XFile file) async {
+  static VisionImage? image;
+
+  Future<List<EntityAnnotation>?> recognize(XFile file) async {
     final GoogleVision googleVision = await GoogleVision.withJwt(
         dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!);
-    final Uint8List encodedBytes = await file.readAsBytes();
+    final Uint8List _encodedBytes = await file.readAsBytes();
 
-    final AnnotateImageRequest request = AnnotateImageRequest(
-        image: VisionImage(encodedBytes),
-        features: <Feature>[
-          Feature(type: 'TEXT_DETECTION'),
-        ]);
+    image = VisionImage(_encodedBytes);
+    final AnnotateImageRequest _request =
+        AnnotateImageRequest(image: image, features: <Feature>[
+      Feature(type: 'TEXT_DETECTION'),
+    ]);
 
-    final BatchAnnotateImagesResponse response =
-        await googleVision.annotate(<AnnotateImageRequest>[request]);
+    final BatchAnnotateImagesResponse _response =
+        await googleVision.annotate(<AnnotateImageRequest>[_request]);
 
-    print(response.responses?.first.textAnnotations?.first.description);
+    print(_response.responses?.first.textAnnotations?.first.description);
+    return _response.responses?.first.textAnnotations;
+  }
+
+  String drawAnnotations(List<EntityAnnotation> textAnnotations) {
+    assert(image != null);
+
+    for (final EntityAnnotation textAnnotation in textAnnotations) {
+      if (textAnnotation.boundingPoly?.vertices != null) {
+        GoogleVision.drawAnnotations(
+            image!, textAnnotation.boundingPoly!.vertices!);
+      }
+    }
+
+    return image!.toBase64Image;
   }
 }
