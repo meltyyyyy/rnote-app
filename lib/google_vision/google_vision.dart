@@ -37,20 +37,13 @@ class GoogleVision {
   }
 
   ///Run image detection and annotation for a batch of images.
-  Future<void> annotate(String image) async {
+  Future<BatchAnnotateImagesResponse> annotate(List<AnnotateImageRequest> requests) async {
     assert(_accessToken != null);
     assert(_rest != null);
 
     VisionApi _vision = VisionApi(_rest!);
     ImagesResource _api = _vision.images;
-    final AnnotateImageRequest request = AnnotateImageRequest(
-        image: Image(content: image),
-        features: <Feature>[
-          Feature(type: 'DOCUMENT_TEXT_DETECTION')
-        ]);
-    BatchAnnotateImagesResponse response = await _api
-        .annotate(BatchAnnotateImagesRequest(requests: <AnnotateImageRequest>[request]));
-    print(response.responses?.first.fullTextAnnotation?.text);
+    return _api.annotate(BatchAnnotateImagesRequest(requests: requests));
   }
 }
 
