@@ -48,10 +48,9 @@ class GoogleVision {
         features: <Feature>[
           Feature(type: 'DOCUMENT_TEXT_DETECTION')
         ]);
-    print(request.toJson());
     BatchAnnotateImagesResponse response = await _api
-        .annotate(BatchAnnotateImagesRequest.fromJson(request.toJson()));
-    print(response.responses?.first.fullTextAnnotation);
+        .annotate(BatchAnnotateImagesRequest(requests: <AnnotateImageRequest>[request]));
+    print(response.responses?.first.fullTextAnnotation?.text);
   }
 }
 
