@@ -56,16 +56,22 @@ class GoogleVision {
 
       final Vertex vStop = vertices[index + 1];
 
-      if(vStart.x != null && vStart.y != null && vStop.x != null && vStop.y != null){
-        visionImage.drawLine(vStart.x!, vStart.y!, vStop.x!, vStop.y!, RgbColor.name(color),
+      if (vStart.x != null &&
+          vStart.y != null &&
+          vStop.x != null &&
+          vStop.y != null) {
+        visionImage.drawLine(
+            vStart.x!, vStart.y!, vStop.x!, vStop.y!, RgbColor.name(color),
             thickness: thickness);
       }
     }
 
-
-    if(vertices.last.x != null && vertices.last.y != null && vertices.first.x != null && vertices.first.y != null){
-      visionImage.drawLine(vertices.last.x!, vertices.last.y!, vertices.first.x!,
-          vertices.first.y!, RgbColor.name(color),
+    if (vertices.last.x != null &&
+        vertices.last.y != null &&
+        vertices.first.x != null &&
+        vertices.first.y != null) {
+      visionImage.drawLine(vertices.last.x!, vertices.last.y!,
+          vertices.first.x!, vertices.first.y!, RgbColor.name(color),
           thickness: thickness);
     }
   }
