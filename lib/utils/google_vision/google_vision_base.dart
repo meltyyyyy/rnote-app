@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:googleapis/vision/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
+import 'package:rnote_app/utils/google_vision/vision_image.dart';
 
 class GoogleVision {
   GoogleVision();
@@ -41,4 +42,8 @@ class GoogleVision {
     return _api.annotate(BatchAnnotateImagesRequest(requests: requests));
   }
 
+  ///draw [text] on the [Image] at the [x] and [y] position
+  static void drawText(VisionImage visionImage, int x, int y, String text) {
+    visionImage.drawString(x, y, text);
+  }
 }
