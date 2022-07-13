@@ -6,7 +6,6 @@ import 'package:image/image.dart' as img;
 import 'package:universal_io/io.dart';
 
 class Image {
-
   Image(this.encodedBytes)
       : content = base64Encode(encodedBytes),
         _decodedBytes = img.decodeImage(encodedBytes);

@@ -8,8 +8,6 @@ import 'package:googleapis_auth/auth_io.dart';
 
 import 'models/annotation_request.dart';
 
-
-
 class GoogleVision {
   GoogleVision();
 
@@ -37,7 +35,8 @@ class GoogleVision {
   }
 
   ///Run image detection and annotation for a batch of images.
-  Future<BatchAnnotateImagesResponse> annotate(List<AnnotateImageRequest> requests) async {
+  Future<BatchAnnotateImagesResponse> annotate(
+      List<AnnotateImageRequest> requests) async {
     assert(_accessToken != null);
     assert(_rest != null);
 
@@ -46,7 +45,6 @@ class GoogleVision {
     return _api.annotate(BatchAnnotateImagesRequest(requests: requests));
   }
 }
-
 
 // class GoogleVision {
 //   GoogleVision() : _rest = VisionClient(dio);
