@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,12 +13,10 @@ class TextRecognizer {
 
   static VisionImage? image;
 
-  Future<List<EntityAnnotation>?> recognize(XFile file) async {
+  Future<List<EntityAnnotation>?> recognize(Uint8List encodedBytes) async {
     final GoogleVision googleVision = await GoogleVision.withJwt(
         dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!);
-    final Uint8List _encodedBytes = await file.readAsBytes();
-
-    image = VisionImage(_encodedBytes);
+    image = VisionImage(encodedBytes);
     final AnnotateImageRequest _request =
         AnnotateImageRequest(image: image, features: <Feature>[
       Feature(type: 'TEXT_DETECTION'),

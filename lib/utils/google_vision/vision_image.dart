@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:color/color.dart' as clr;
 import 'package:googleapis/vision/v1.dart';
 import 'package:image/image.dart' as img;
-import 'package:universal_io/io.dart';
 
 class VisionImage extends Image {
   VisionImage(this.encodedBytes)

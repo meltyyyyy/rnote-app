@@ -19,7 +19,7 @@ class Home extends ConsumerWidget {
     Widget _body(int index) {
       switch (index) {
         case BottomTabIndex.note:
-          return const Note();
+          return Note();
         case BottomTabIndex.recipes:
           return const Recipes();
         case BottomTabIndex.mypage:
