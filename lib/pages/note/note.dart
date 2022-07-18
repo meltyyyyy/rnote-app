@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -7,41 +6,36 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 import '../../controllers/note/image.dart';
 import '../../providers/note/image.dart';
-import '../../utils/text_recognizer.dart';
 
 class Note extends HookConsumerWidget {
-  Note({Key? key}) : super(key: key);
-  final TextRecognizer _recognizer = TextRecognizer();
-
+  const Note({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String base64Image = ref.watch(base64ImageProvider);
-    final Base64ImageController base64ImageCtl = ref.watch(base64ImageProvider.notifier);
+    final Base64ImageController base64ImageCtl =
+        ref.watch(base64ImageProvider.notifier);
 
     Future<void> _annotate() async {
       final ImagePicker imagePicker = ImagePicker();
-      final XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
+      final XFile? file =
+          await imagePicker.pickImage(source: ImageSource.gallery);
       if (file != null) {
-        final  Uint8List _encodedBytes = await file.readAsBytes();
+        final Uint8List _encodedBytes = await file.readAsBytes();
         await base64ImageCtl.recognize(base64Encode(_encodedBytes));
         base64ImageCtl.annotate();
       }
     }
 
     return Scaffold(
-      body: Center(
-        child: base64Image.isEmpty
-            ? const Text('No Image Selected')
-            : Image.memory(base64ImageCtl.toByte),
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.camera_alt),
-          onPressed: () => _annotate()
-      )
-    );
+        body: Center(
+          child: base64Image.isEmpty
+              ? const Text('No Image Selected')
+              : Image.memory(base64ImageCtl.toByte),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.camera_alt), onPressed: () => _annotate()));
   }
 }

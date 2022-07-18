@@ -6,14 +6,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../utils/text_recognizer.dart';
 
-class Base64ImageController extends StateNotifier<String>{
+class Base64ImageController extends StateNotifier<String> {
   Base64ImageController(super.state);
 
   final TextRecognizer _recognizer = TextRecognizer();
 
   List<EntityAnnotation>? _annotations;
 
-  List<EntityAnnotation> get annotations => _annotations ?? <EntityAnnotation>[];
+  List<EntityAnnotation> get annotations =>
+      _annotations ?? <EntityAnnotation>[];
   Uint8List get toByte => base64Decode(state);
 
   Future<void> recognize(String base64Image) async {
@@ -22,7 +23,7 @@ class Base64ImageController extends StateNotifier<String>{
     _annotations = await _recognizer.recognize(encodedBytes);
   }
 
-  void annotate(){
+  void annotate() {
     state = _recognizer.drawAnnotations(annotations);
   }
 }
