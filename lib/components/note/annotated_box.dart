@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/app_color.dart';
+
 class AnnotatedBox extends StatelessWidget {
   const AnnotatedBox({Key? key,
     required this.left,
@@ -21,7 +23,7 @@ class AnnotatedBox extends StatelessWidget {
         left: left,
         top: top,
         child: Container(
-          color: const Color(0x9F009688),
+          color: AppColor.annotatedBox,
           width: width,
           height: height,
           child: Center(child:
