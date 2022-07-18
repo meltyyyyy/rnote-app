@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/bottom_tab_index.dart';
+import '../providers/bottom_sheet_state.dart';
 import '../providers/bottom_tab_index.dart';
 import 'mypage/mypage.dart';
 import 'note/note.dart';
@@ -13,13 +14,14 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int bottomTabIndex = ref.watch(bottomTabIndexProvider);
+    final StateController<bool> bottomSheetStateCtl = ref.watch(bottomSheetStateProvider.notifier);
     final StateController<int> bottomTabIndexCtl =
         ref.watch(bottomTabIndexProvider.notifier);
 
     Widget _body(int index) {
       switch (index) {
         case BottomTabIndex.note:
-          return Note();
+          return const Note();
         case BottomTabIndex.recipes:
           return const Recipes();
         case BottomTabIndex.mypage:
@@ -32,6 +34,13 @@ class Home extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rnote'),
+        leading: GestureDetector(
+          onTap: () {
+            bottomSheetStateCtl.update((_) => true);
+            print("update");
+          },
+          child: const Icon(Icons.upload),
+        ),
       ),
       body: _body(bottomTabIndex),
       bottomNavigationBar: BottomNavigationBar(

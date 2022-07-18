@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
+import '../../providers/bottom_sheet_state.dart';
 import '../../providers/note/image.dart';
 
 class Note extends HookConsumerWidget {
@@ -18,6 +19,17 @@ class Note extends HookConsumerWidget {
     final String base64Image = ref.watch(base64ImageProvider);
     final Base64ImageController base64ImageCtl =
         ref.watch(base64ImageProvider.notifier);
+
+    ref.listen(bottomSheetStateProvider, (bool? previous, bool next) {
+      if(next){
+        showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return const SizedBox(height: 120);
+            }
+        );
+      }
+    });
 
     Future<void> _annotate() async {
       final ImagePicker imagePicker = ImagePicker();
