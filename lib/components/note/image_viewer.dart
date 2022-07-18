@@ -43,19 +43,23 @@ class ImageViewer extends ConsumerWidget {
           if (0 < dx && dx < _width * _dpr / 3 && 0 < dy && dy < _height * _dpr / 3) {
             _annotatedTexts.add(
                 Positioned(
-                  left: _upperLeft.x!.toDouble() / _dpr,
-                  top: _upperLeft.y!.toDouble() / _dpr,
+                  left: _upperLeft.x!.toDouble() / (_dpr + 1),
+                  top: _upperLeft.y!.toDouble() / (_dpr + 1),
                   child: GestureDetector(
                     onTap: () {
-                      print('ontap');
-                      print(annotation.description);
                     },
-                    child: ColoredBox(
-                      color: Colors.orange,
-                      child: SizedBox(
-                        width: dx / _dpr,
-                        height: dy / _dpr,
-                      ),
+                    child: Container(
+                      color: const Color(0x9F009688),
+                      width: dx / _dpr,
+                      height: dy / _dpr,
+                      child: Center(child:
+                      Text(annotation.description ?? '',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 4,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),)
                     ),
                   ),
                 )
