@@ -18,47 +18,40 @@ class ImageViewer extends ConsumerWidget {
     final double _height = MediaQuery.of(context).size.width;
     final double _dpr = MediaQuery.of(context).devicePixelRatio;
 
-    return InteractiveViewer(child: Builder(builder: (BuildContext context) {
-      final List<Widget> _annotatedTexts = <Widget>[];
-      for (final vision.EntityAnnotation annotation
-          in base64ImageCtl.annotations) {
-        if (annotation.boundingPoly?.vertices != null &&
-            annotation.boundingPoly!.vertices!.length == 4) {
-          final vision.Vertex _upperLeft =
-              annotation.boundingPoly!.vertices![0];
-          final vision.Vertex _lowerRight =
-              annotation.boundingPoly!.vertices![2];
+    bool _isValidAnnotation(vision.EntityAnnotation annotation){
+      return annotation.boundingPoly?.vertices != null &&
+          annotation.boundingPoly!.vertices!.length == 4;
+    }
 
-          if (_upperLeft.x == null &&
-              _upperLeft.y == null &&
-              _lowerRight.x == null &&
-              _lowerRight.y == null) {
-            continue;
-          }
-
-          final double dx =
-              _lowerRight.x!.toDouble() - _upperLeft.x!.toDouble();
-          final double dy =
-              _lowerRight.y!.toDouble() - _upperLeft.y!.toDouble();
-
-          if (0 < dx && dx < _width * _dpr / 3 && 0 < dy && dy < _height * _dpr / 3) {
-            _annotatedTexts.add(
-                AnnotatedBox(
-                  text: annotation.description ?? '',
-                  width: dx / _dpr,
-                  height: dy / _dpr,
-                  left: _upperLeft.x!.toDouble() / (_dpr + 1),
-                  top: _upperLeft.y!.toDouble() / (_dpr + 1),)
-            );
-          }
-        }
-      }
-      return Stack(
+    return InteractiveViewer(
+      child: Stack(
         children: <Widget>[
           Image.memory(base64ImageCtl.toByte),
-          ..._annotatedTexts
+          ...base64ImageCtl.annotations.map((vision.EntityAnnotation annotation) {
+            if(annotation.boundingPoly?.vertices == null ||
+                annotation.boundingPoly!.vertices!.length != 4){
+              return const SizedBox();
+            }
+
+            final Size size = base64ImageCtl.calcSize(annotation);
+            final Offset offset = base64ImageCtl.calcOffset(annotation);
+
+            if(0 < size.width &&
+                size.width < _width * _dpr / 3 &&
+                0 < size.height &&
+                size.height < _height * _dpr / 3){
+              return const SizedBox();
+            }
+
+            return AnnotatedBox(
+              text: annotation.description ?? '',
+              width: size.width / _dpr,
+              height: size.height / _dpr,
+              left: offset.dx / (_dpr + 1),
+              top: offset.dy / (_dpr + 1));
+          }).toList(),
         ],
-      );
-    }));
+      )
+    );
   }
 }
