@@ -37,6 +37,7 @@ class Note extends HookConsumerWidget {
               : const ImageViewer(),
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.camera_alt), onPressed: () => _annotate()));
+            child: const Icon(Icons.camera_alt), onPressed: () => _annotate())
+    );
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/app_color.dart';
+import '../../controllers/note/selected_item.dart';
+import '../../providers/note/selected_item.dart';
 
 class AnnotatedBox extends HookConsumerWidget {
   const AnnotatedBox(
@@ -23,16 +25,22 @@ class AnnotatedBox extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ValueNotifier<bool> isSelected = useState(false);
+    final List<String> selectedItem = ref.watch(selectedItemProvider);
+    final  SelectedItemController selectedItemCtl =
+        ref.watch(selectedItemProvider.notifier);
 
     return Positioned(
         left: left,
         top: top,
         child: GestureDetector(
           onTap: () {
+            selectedItemCtl.add(text);
             isSelected.value = !isSelected.value;
           },
           child: Container(
-            color: isSelected.value ? AppColor.selectedItem : AppColor.annotatedBox,
+            color: isSelected.value
+                ? AppColor.selectedItem
+                : AppColor.annotatedBox,
             width: width,
             height: height,
             child: Center(
