@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/app_color.dart';
 
-class AnnotatedBox extends StatelessWidget {
+class AnnotatedBox extends HookConsumerWidget {
   const AnnotatedBox(
       {Key? key,
       required this.left,
@@ -19,20 +21,27 @@ class AnnotatedBox extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ValueNotifier<bool> isSelected = useState(false);
+
     return Positioned(
         left: left,
         top: top,
-        child: Container(
-          color: AppColor.annotatedBox,
-          width: width,
-          height: height,
-          child: Center(
-            child: Text(text,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 4,
-                    fontWeight: FontWeight.bold)),
+        child: GestureDetector(
+          onTap: () {
+            isSelected.value = !isSelected.value;
+          },
+          child: Container(
+            color: isSelected.value ? AppColor.selectedItem : AppColor.annotatedBox,
+            width: width,
+            height: height,
+            child: Center(
+              child: Text(text,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 4,
+                      fontWeight: FontWeight.bold)),
+            ),
           ),
         ));
   }

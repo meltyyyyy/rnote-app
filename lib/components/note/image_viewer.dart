@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:googleapis/vision/v1.dart' as vision;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,7 +23,7 @@ class ImageViewer extends ConsumerWidget {
     return InteractiveViewer(
         child: Stack(
       children: <Widget>[
-        Image.memory(base64ImageCtl.toByte),
+        Image.memory(base64Decode(base64Image)),
         ...base64ImageCtl.annotations.map((vision.EntityAnnotation annotation) {
           if (annotation.boundingPoly?.vertices == null ||
               annotation.boundingPoly!.vertices!.length != 4) {
