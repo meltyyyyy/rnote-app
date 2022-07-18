@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/vision/v1.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'google_vision/google_vision_base.dart';
 import 'google_vision/vision_image.dart';
@@ -25,7 +24,7 @@ class TextRecognizer {
     final BatchAnnotateImagesResponse _response =
         await googleVision.annotate(<AnnotateImageRequest>[_request]);
 
-    print(_response.responses?.first.textAnnotations?.first.description);
+    // print(_response.responses?.first.textAnnotations?.first.description);
     return _response.responses?.first.textAnnotations;
   }
 

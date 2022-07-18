@@ -21,6 +21,8 @@ dependencies:
   image: ^3.2.0
   universal_io: ^2.0.4
   color: ^3.0.0
+  image_pixels: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:

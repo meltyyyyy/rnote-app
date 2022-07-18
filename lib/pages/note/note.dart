@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
 import '../../providers/note/image.dart';
 
@@ -33,7 +34,7 @@ class Note extends HookConsumerWidget {
         body: Center(
           child: base64Image.isEmpty
               ? const Text('No Image Selected')
-              : Image.memory(base64ImageCtl.toByte),
+              : const ImageViewer(),
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.camera_alt), onPressed: () => _annotate()));
