@@ -35,15 +35,15 @@ class ImageViewer extends ConsumerWidget {
               size.width < _width * _dpr / 3 &&
               0 < size.height &&
               size.height < _height * _dpr / 3) {
-            return const SizedBox.shrink();
+            return AnnotatedBox(
+                text: annotation.description ?? '',
+                width: size.width / _dpr,
+                height: size.height / _dpr,
+                left: offset.dx / (_dpr + 1),
+                top: offset.dy / (_dpr + 1));
           }
 
-          return AnnotatedBox(
-              text: annotation.description ?? '',
-              width: size.width / _dpr,
-              height: size.height / _dpr,
-              left: offset.dx / (_dpr + 1),
-              top: offset.dy / (_dpr + 1));
+          return const SizedBox.shrink();
         }).toList(),
       ],
     ));
