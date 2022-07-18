@@ -30,7 +30,7 @@ class Base64ImageController extends StateNotifier<String> {
     state = _recognizer.drawAnnotations(annotations);
   }
 
-  Size calcSize(EntityAnnotation annotation){
+  Size calcSize(EntityAnnotation annotation) {
     assert(annotation.boundingPoly?.vertices != null);
     assert(annotation.boundingPoly?.vertices?.length == 4);
     final Vertex _upperLeft = annotation.boundingPoly!.vertices![0];
@@ -43,10 +43,8 @@ class Base64ImageController extends StateNotifier<String> {
       return Size.zero;
     }
 
-    final double width =
-        _lowerRight.x!.toDouble() - _upperLeft.x!.toDouble();
-    final double height =
-        _lowerRight.y!.toDouble() - _upperLeft.y!.toDouble();
+    final double width = _lowerRight.x!.toDouble() - _upperLeft.x!.toDouble();
+    final double height = _lowerRight.y!.toDouble() - _upperLeft.y!.toDouble();
 
     return Size(width, height);
   }
@@ -56,8 +54,7 @@ class Base64ImageController extends StateNotifier<String> {
     assert(annotation.boundingPoly?.vertices?.length == 4);
     final Vertex _upperLeft = annotation.boundingPoly!.vertices![0];
 
-    if (_upperLeft.x == null &&
-        _upperLeft.y == null ) {
+    if (_upperLeft.x == null && _upperLeft.y == null) {
       return Offset.zero;
     }
 

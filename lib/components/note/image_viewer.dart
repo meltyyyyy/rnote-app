@@ -18,40 +18,34 @@ class ImageViewer extends ConsumerWidget {
     final double _height = MediaQuery.of(context).size.width;
     final double _dpr = MediaQuery.of(context).devicePixelRatio;
 
-    bool _isValidAnnotation(vision.EntityAnnotation annotation){
-      return annotation.boundingPoly?.vertices != null &&
-          annotation.boundingPoly!.vertices!.length == 4;
-    }
-
     return InteractiveViewer(
-      child: Stack(
-        children: <Widget>[
-          Image.memory(base64ImageCtl.toByte),
-          ...base64ImageCtl.annotations.map((vision.EntityAnnotation annotation) {
-            if(annotation.boundingPoly?.vertices == null ||
-                annotation.boundingPoly!.vertices!.length != 4){
-              return const SizedBox();
-            }
+        child: Stack(
+      children: <Widget>[
+        Image.memory(base64ImageCtl.toByte),
+        ...base64ImageCtl.annotations.map((vision.EntityAnnotation annotation) {
+          if (annotation.boundingPoly?.vertices == null ||
+              annotation.boundingPoly!.vertices!.length != 4) {
+            return const SizedBox.shrink();
+          }
 
-            final Size size = base64ImageCtl.calcSize(annotation);
-            final Offset offset = base64ImageCtl.calcOffset(annotation);
+          final Size size = base64ImageCtl.calcSize(annotation);
+          final Offset offset = base64ImageCtl.calcOffset(annotation);
 
-            if(0 < size.width &&
-                size.width < _width * _dpr / 3 &&
-                0 < size.height &&
-                size.height < _height * _dpr / 3){
-              return const SizedBox();
-            }
+          if (0 < size.width &&
+              size.width < _width * _dpr / 3 &&
+              0 < size.height &&
+              size.height < _height * _dpr / 3) {
+            return const SizedBox.shrink();
+          }
 
-            return AnnotatedBox(
+          return AnnotatedBox(
               text: annotation.description ?? '',
               width: size.width / _dpr,
               height: size.height / _dpr,
               left: offset.dx / (_dpr + 1),
               top: offset.dy / (_dpr + 1));
-          }).toList(),
-        ],
-      )
-    );
+        }).toList(),
+      ],
+    ));
   }
 }
