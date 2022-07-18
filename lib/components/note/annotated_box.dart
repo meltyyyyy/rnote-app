@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
 
 class AnnotatedBox extends StatelessWidget {
-  const AnnotatedBox({Key? key}) : super(key: key);
+  const AnnotatedBox({Key? key,
+    required this.left,
+    required this.top,
+    required this.width,
+    required this.height,
+    required this.text})
+      : super(key: key);
 
-  final double _left;
+  final double left;
+  final double top;
+  final double width;
+  final double height;
+  final String text;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Positioned(
+        left: left,
+        top: top,
+        child: Container(
+          color: const Color(0x9F009688),
+          width: width,
+          height: height,
+          child: Center(child:
+          Text(text,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 4,
+                  fontWeight: FontWeight.bold
+              )
+          ),),
+        )
+    );
   }
 }
