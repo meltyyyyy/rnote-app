@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../components/app_bottomsheet.dart';
+import '../../components/app_input.dart';
 import '../../components/app_text.dart';
 import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
@@ -36,7 +37,11 @@ class Note extends HookConsumerWidget {
                     actionTitle: '追加',
                     proceed: () {},
                     context: context),
-                AppText(selectedItem.join(''))
+                const SizedBox(height: 8),
+                AppInput.medium(TextEditingController(text: selectedItem.join('')),
+                    autofocus: true,
+                    textInputType: TextInputType.text,
+                    hintText: 'レシピ'),
               ],
             ));
       }
