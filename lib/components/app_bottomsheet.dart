@@ -7,7 +7,7 @@ import 'app_textbutton.dart';
 
 class AppBottomSheet {
   static Future<void> show(BuildContext context,
-      {required Widget body, double? height}) =>
+          {required Widget body, double? height}) =>
       showModalBottomSheet(
           isScrollControlled: true,
           shape: const RoundedRectangleBorder(
@@ -18,7 +18,7 @@ class AppBottomSheet {
               padding: MediaQuery.of(context).viewInsets,
               child: Container(
                   padding:
-                  const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
                   height: height ?? MediaQuery.of(context).size.height * 2 / 5,
                   decoration: const BoxDecoration(
                       color: Colors.white,
@@ -54,12 +54,12 @@ class AppBottomSheet {
         ),
         const SizedBox(height: 8),
         Container(
-          alignment: Alignment.center,
-          child: AppText(
-            title,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,)
-        ),
+            alignment: Alignment.center,
+            child: AppText(
+              title,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )),
         const SizedBox(height: 16),
         AppDivider.dottedDivider(),
         const SizedBox(height: 16),
