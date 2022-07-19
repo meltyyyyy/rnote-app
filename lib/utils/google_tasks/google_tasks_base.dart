@@ -23,11 +23,11 @@ class GoogleTasks {
   static Future<GoogleTasks> withJwt(String jwtPath) async {
     final GoogleTasks googleTasks = GoogleTasks();
 
-    String _json = await rootBundle.loadString(jwtPath);
-    ServiceAccountCredentials accountCredentials =
+    final String _json = await rootBundle.loadString(jwtPath);
+    final ServiceAccountCredentials accountCredentials =
     ServiceAccountCredentials.fromJson(jsonDecode(_json));
-    List<String> scopes = <String>[TasksApi.tasksScope];
-    AutoRefreshingAuthClient client =
+    final List<String> scopes = <String>[TasksApi.tasksScope];
+    final AutoRefreshingAuthClient client =
     await clientViaServiceAccount(accountCredentials, scopes);
 
     _accessToken = client.credentials.accessToken;
@@ -35,5 +35,32 @@ class GoogleTasks {
     return googleTasks;
   }
 
+  /// Get on a collection URI.
+  Future<Tasks> list(
+      String taskList) async {
+    assert(_accessToken != null);
+    assert(_client != null);
 
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.list(taskList);
+  }
+
+  Future<Task> get(String taskList, String task) async {
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.get(taskList, task);
+  }
+
+  Future<Task> insert(String taskList, String task) async {
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.
+  }
 }

@@ -128,10 +128,10 @@ linter:
     # - prefer_double_quotes
     - prefer_equal_for_default_values
     # - prefer_expression_function_bodies
-    # - prefer_final_fields
+    - prefer_final_fields
     - prefer_final_in_for_each
-    # - prefer_final_locals
-    # - prefer_final_parameters
+    - prefer_final_locals
+#    - prefer_final_parameters
     - prefer_for_elements_to_map_fromIterable
     - prefer_foreach
     - prefer_function_declarations_over_variables
