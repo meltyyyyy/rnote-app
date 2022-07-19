@@ -33,7 +33,7 @@ class Note extends HookConsumerWidget {
                     title: '買い物リストに追加',
                     proceed: () {},
                     context: context),
-
+                
               ],
             )
         );
