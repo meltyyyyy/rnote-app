@@ -30,14 +30,37 @@ class GoogleTasks {
     return googleTasks;
   }
 
+  /// authenticate with jwt
+  static Future<GoogleTasks> withAccount() async {
+    final GoogleTasks googleTasks = GoogleTasks();
+
+    final client = google
+    final List<String> scopes = <String>[TasksApi.tasksScope];
+    final AutoRefreshingAuthClient client =
+    await clientViaServiceAccount(accountCredentials, scopes);
+
+    _accessToken = client.credentials.accessToken;
+    _client = client;
+    return googleTasks;
+  }
+
+  Future<TaskLists> test(){
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final  TasklistsResource _api = _tasks.tasklists;
+    return _api.list();
+  }
+
   /// Get on a collection URI.
-  Future<Tasks> list(String taskList) async {
+  Future<Tasks> list(String taskList) {
     assert(_accessToken != null);
     assert(_client != null);
 
     final TasksApi _tasks = TasksApi(_client!);
     final TasksResource _api = _tasks.tasks;
-    return _api.list(taskList);
+    return _api.list(taskList, maxResults: 10);
   }
 
   Future<Task> get(String taskList, String task) async {

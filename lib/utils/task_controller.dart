@@ -7,12 +7,12 @@ class TaskController {
   TaskController()
       : assert(dotenv.env['GOOGLE_APPLICATION_CREDENTIALS'] != null);
 
-  Future<void> recognize(String taskList) async {
+  Future<void> fetchTasks(String taskList) async {
     final GoogleTasks googleTasks = await GoogleTasks.withJwt(
         dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!);
 
-    final Tasks _response = await googleTasks.list(taskList);
+    final TaskLists test = await googleTasks.test();
 
-    print(_response.toJson());
+    print(test.items?.first.id);
   }
 }

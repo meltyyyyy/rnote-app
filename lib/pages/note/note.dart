@@ -14,6 +14,7 @@ import '../../controllers/note/image.dart';
 import '../../providers/bottom_sheet_state.dart';
 import '../../providers/note/image.dart';
 import '../../providers/note/selected_item.dart';
+import '../../utils/task_controller.dart';
 
 class Note extends HookConsumerWidget {
   const Note({Key? key}) : super(key: key);
@@ -35,7 +36,10 @@ class Note extends HookConsumerWidget {
                 AppBottomSheet.bottomSheetTitle(
                     title: '買いものリストに追加',
                     actionTitle: '追加',
-                    proceed: () {},
+                    proceed: () {
+                      final TaskController taskCtl = TaskController();
+                      taskCtl.fetchTasks('レシピ');
+                    },
                     context: context),
                 const SizedBox(height: 8),
                 AppInput.medium(TextEditingController(text: selectedItem.join('')),
