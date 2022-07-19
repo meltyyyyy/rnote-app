@@ -14,7 +14,8 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int bottomTabIndex = ref.watch(bottomTabIndexProvider);
-    final StateController<bool> bottomSheetStateCtl = ref.watch(bottomSheetStateProvider.notifier);
+    final StateController<bool> bottomSheetStateCtl =
+        ref.watch(bottomSheetStateProvider.notifier);
     final StateController<int> bottomTabIndexCtl =
         ref.watch(bottomTabIndexProvider.notifier);
 

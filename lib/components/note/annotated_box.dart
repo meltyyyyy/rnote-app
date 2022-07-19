@@ -26,7 +26,7 @@ class AnnotatedBox extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ValueNotifier<bool> isSelected = useState(false);
     final List<String> selectedItem = ref.watch(selectedItemProvider);
-    final  SelectedItemController selectedItemCtl =
+    final SelectedItemController selectedItemCtl =
         ref.watch(selectedItemProvider.notifier);
 
     return Positioned(

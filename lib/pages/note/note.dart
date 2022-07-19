@@ -21,13 +21,12 @@ class Note extends HookConsumerWidget {
         ref.watch(base64ImageProvider.notifier);
 
     ref.listen(bottomSheetStateProvider, (bool? previous, bool next) {
-      if(next){
+      if (next) {
         showModalBottomSheet<void>(
             context: context,
             builder: (BuildContext context) {
               return const SizedBox(height: 120);
-            }
-        );
+            });
       }
     });
 
@@ -49,7 +48,6 @@ class Note extends HookConsumerWidget {
               : const ImageViewer(),
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.camera_alt), onPressed: () => _annotate())
-    );
+            child: const Icon(Icons.camera_alt), onPressed: () => _annotate()));
   }
 }
