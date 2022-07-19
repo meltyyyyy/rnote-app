@@ -1,8 +1,3 @@
-
-
-
-
-
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
@@ -25,10 +20,10 @@ class GoogleTasks {
 
     final String _json = await rootBundle.loadString(jwtPath);
     final ServiceAccountCredentials accountCredentials =
-    ServiceAccountCredentials.fromJson(jsonDecode(_json));
+        ServiceAccountCredentials.fromJson(jsonDecode(_json));
     final List<String> scopes = <String>[TasksApi.tasksScope];
     final AutoRefreshingAuthClient client =
-    await clientViaServiceAccount(accountCredentials, scopes);
+        await clientViaServiceAccount(accountCredentials, scopes);
 
     _accessToken = client.credentials.accessToken;
     _client = client;
@@ -36,8 +31,7 @@ class GoogleTasks {
   }
 
   /// Get on a collection URI.
-  Future<Tasks> list(
-      String taskList) async {
+  Future<Tasks> list(String taskList) async {
     assert(_accessToken != null);
     assert(_client != null);
 
@@ -82,4 +76,3 @@ class GoogleTasks {
     return _api.delete(taskList, task);
   }
 }
-

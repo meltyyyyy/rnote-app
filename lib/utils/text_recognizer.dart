@@ -3,8 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/vision/v1.dart';
 
-import 'google_vision/google_vision_base.dart';
-import 'google_vision/vision_image.dart';
+import 'google_apis/google_vision_base.dart';
+import 'google_apis/vision_image.dart';
+
+
+
 
 class TextRecognizer {
   TextRecognizer()
