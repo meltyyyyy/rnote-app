@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_color.dart';
+import 'app_divider.dart';
 import 'app_textbutton.dart';
 
 class AppBottomSheet {
@@ -61,7 +62,7 @@ class AppBottomSheet {
           ),
         ),
         const SizedBox(height: 16),
-        CustomDivider().dottedDivider(),
+        AppDivider.dottedDivider(),
         const SizedBox(height: 16),
       ],
     );
