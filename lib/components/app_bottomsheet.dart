@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_color.dart';
 import 'app_divider.dart';
+import 'app_text.dart';
 import 'app_textbutton.dart';
 
 class AppBottomSheet {
@@ -54,12 +55,10 @@ class AppBottomSheet {
         const SizedBox(height: 8),
         Container(
           alignment: Alignment.center,
-          child: Text(
+          child: AppText(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,),
-          ),
+            fontWeight: FontWeight.bold,
+            fontSize: 16,)
         ),
         const SizedBox(height: 16),
         AppDivider.dottedDivider(),

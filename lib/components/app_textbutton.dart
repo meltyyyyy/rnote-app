@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_text.dart';
+
 class AppTextButton extends StatelessWidget {
   const AppTextButton({
     required this.text,
@@ -16,10 +18,6 @@ class AppTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: Feedback.wrapForTap(onTap, context),
-        child: Text(
-          text,
-          style: TextStyle(
-              color: textColor, fontWeight: FontWeight.bold, fontSize: 14),
-        ));
+        child: AppText(text, color: textColor, fontWeight: FontWeight.bold));
   }
 }
