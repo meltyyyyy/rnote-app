@@ -55,12 +55,12 @@ class GoogleTasks {
     return _api.get(taskList, task);
   }
 
-  Future<Task> insert(String taskList, String task) async {
+  Future<Task> insert(Task request, String taskList) async {
     assert(_accessToken != null);
     assert(_client != null);
 
     final TasksApi _tasks = TasksApi(_client!);
     final TasksResource _api = _tasks.tasks;
-    return _api.
+    return _api.insert(request, taskList);
   }
 }
