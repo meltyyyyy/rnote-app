@@ -38,7 +38,6 @@ class Home extends ConsumerWidget {
         leading: GestureDetector(
           onTap: () {
             bottomSheetStateCtl.update((_) => true);
-            print("update");
           },
           child: const Icon(Icons.upload),
         ),

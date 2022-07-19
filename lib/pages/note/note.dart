@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../components/app_bottomsheet.dart';
 import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
 import '../../providers/bottom_sheet_state.dart';
@@ -22,11 +23,20 @@ class Note extends HookConsumerWidget {
 
     ref.listen(bottomSheetStateProvider, (bool? previous, bool next) {
       if (next) {
-        showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return const SizedBox(height: 120);
-            });
+        AppBottomSheet.show(
+            context,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AppBottomSheet.bottomSheetTitle(
+                    title: '買い物リストに追加',
+                    proceed: () {},
+                    context: context),
+
+              ],
+            )
+        );
       }
     });
 
