@@ -37,8 +37,8 @@ class Note extends HookConsumerWidget {
                     title: '買いものリストに追加',
                     actionTitle: '追加',
                     proceed: () {
-                      final TaskController taskCtl = TaskController();
-                      taskCtl.fetchTasks('レシピ');
+                      // final TaskController taskCtl = TaskController();
+                      // taskCtl.fetchTasks('レシピ');
                     },
                     context: context),
                 const SizedBox(height: 8),

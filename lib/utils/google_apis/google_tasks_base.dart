@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:googleapis/content/v2_1.dart';
 import 'package:googleapis/tasks/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
 
@@ -30,14 +32,16 @@ class GoogleTasks {
     return googleTasks;
   }
 
-  /// authenticate with jwt
+  /// authenticate with Account
   static Future<GoogleTasks> withAccount() async {
     final GoogleTasks googleTasks = GoogleTasks();
 
-    final client = google
     final List<String> scopes = <String>[TasksApi.tasksScope];
-    final AutoRefreshingAuthClient client =
-    await clientViaServiceAccount(accountCredentials, scopes);
+    final GoogleSignIn googleSignIn = GoogleSignIn(scopes: scopes);
+    googleSignIn.signIn();
+
+    final GoogleSignInAuthentication? googleAuth = await googleSignIn.currentUser?.authentication;
+    final accountCredentials = AccountCredentials();
 
     _accessToken = client.credentials.accessToken;
     _client = client;
