@@ -13,8 +13,6 @@ import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
 import '../../providers/bottom_sheet_state.dart';
 import '../../providers/note/image.dart';
-import '../../providers/note/selected_item.dart';
-import '../../utils/task_controller.dart';
 
 class Note extends HookConsumerWidget {
   const Note({Key? key}) : super(key: key);
