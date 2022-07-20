@@ -1,18 +1,18 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/tasks/v1.dart';
 
 import 'google_apis/google_tasks_base.dart';
 
 class TaskController {
-  TaskController()
-      : assert(dotenv.env['GOOGLE_APPLICATION_CREDENTIALS'] != null);
+  TaskController();
 
-  Future<void> fetchTasks(String taskList) async {
-    final GoogleTasks googleTasks = await GoogleTasks.withJwt(
-        dotenv.env['GOOGLE_APPLICATION_CREDENTIALS']!);
+  Future<void> fetchTasks() async {
+    final GoogleTasks googleTasks = await GoogleTasks.withAccount();
 
     final TaskLists test = await googleTasks.test();
 
-    print(test.items?.first.id);
+    for (TaskList taskList in test.items ?? <TaskList>[]){
+      print(taskList.id);
+      print(taskList.title);
+    }
   }
 }

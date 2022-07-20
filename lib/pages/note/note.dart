@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../components/app_bottomsheet.dart';
 import '../../components/app_input.dart';
-import '../../components/app_text.dart';
 import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
 import '../../providers/bottom_sheet_state.dart';
@@ -37,13 +36,13 @@ class Note extends HookConsumerWidget {
                     title: '買いものリストに追加',
                     actionTitle: '追加',
                     proceed: () {
-                      // final TaskController taskCtl = TaskController();
-                      // taskCtl.fetchTasks('レシピ');
+                      final TaskController taskCtl = TaskController();
+                      taskCtl.fetchTasks();
                     },
                     context: context),
                 const SizedBox(height: 8),
                 AppInput.medium(TextEditingController(text: selectedItem.join('')),
-                    autofocus: true,
+                    autofocus: false,
                     textInputType: TextInputType.text,
                     hintText: 'レシピ'),
               ],
