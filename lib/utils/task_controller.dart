@@ -1,9 +1,10 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis/tasks/v1.dart';
 
 import 'google_apis/google_tasks_base.dart';
 
 class TaskController {
-  TaskController();
+  TaskController() : assert(dotenv.env['GOOGLE_TASKS_CLIENT_ID'] != null);
 
   static const String _taskId = 'SmRROENTbmhHSkVyZG51bA';
 

@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../components/app_bottomsheet.dart';
 import '../../components/app_input.dart';
+import '../../components/note/bottomsheet_body.dart';
 import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image.dart';
 import '../../providers/bottom_sheet_state.dart';
@@ -23,31 +24,11 @@ class Note extends HookConsumerWidget {
     final String base64Image = ref.watch(base64ImageProvider);
     final Base64ImageController base64ImageCtl =
         ref.watch(base64ImageProvider.notifier);
-    final List<String> selectedItem = ref.watch(selectedItemProvider);
+
 
     ref.listen(bottomSheetStateProvider, (bool? previous, bool next) {
       if (next) {
-        AppBottomSheet.show(context,
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                AppBottomSheet.bottomSheetTitle(
-                    title: '買いものリストに追加',
-                    actionTitle: '追加',
-                    proceed: () {
-                      final TaskController taskCtl = TaskController();
-                      taskCtl.postTask(selectedItem.join(''));
-                    },
-                    context: context),
-                const SizedBox(height: 8),
-                AppInput.medium(TextEditingController(text: selectedItem.join('')),
-                    autofocus: false,
-                    textInputType: TextInputType.text,
-                    hintText: 'レシピ'),
-              ],
-            )
-        );
+        AppBottomSheet.show(context, body: const BottomSheetBody()).then((_) => ref.watch(bottomSheetStateProvider.notifier).update((_) => false));
       }
     });
 
