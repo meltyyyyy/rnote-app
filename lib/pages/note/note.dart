@@ -25,10 +25,10 @@ class Note extends HookConsumerWidget {
     final Base64ImageController base64ImageCtl =
         ref.watch(base64ImageProvider.notifier);
 
-
     ref.listen(bottomSheetStateProvider, (bool? previous, bool next) {
       if (next) {
-        AppBottomSheet.show(context, body: const BottomSheetBody()).then((_) => ref.watch(bottomSheetStateProvider.notifier).update((_) => false));
+        AppBottomSheet.show(context, body: const BottomSheetBody()).then((_) =>
+            ref.watch(bottomSheetStateProvider.notifier).update((_) => false));
       }
     });
 

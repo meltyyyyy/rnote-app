@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/tasks/v1.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
 
-
 class GoogleTasks {
   GoogleTasks();
 
@@ -25,13 +24,13 @@ class GoogleTasks {
       clientId: dotenv.env['GOOGLE_TASKS_CLIENT_ID'],
     );
 
-    if(await googleSignIn.isSignedIn() &&
+    if (await googleSignIn.isSignedIn() &&
         _client != null &&
-    _accessToken != null){
+        _accessToken != null) {
       return googleTasks;
     }
     await googleSignIn.signIn();
-    final  AuthClient? client = await googleSignIn.authenticatedClient();
+    final AuthClient? client = await googleSignIn.authenticatedClient();
 
     _accessToken = client?.credentials.accessToken;
     _client = client;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_color.dart';
 
-
 class AppInput {
   static const double smallHeight = 32;
   static const double smallWidth = 40;
@@ -10,25 +9,25 @@ class AppInput {
   static const double largeHeight = 160;
 
   static Widget base(
-      TextEditingController controller, {
-        double? height,
-        double? width,
-        int? maxLines,
-        int? maxLength,
-        TextInputType textInputType = TextInputType.text,
-        String hintText = '',
-        bool? enabled,
-        bool autofocus = false,
-        bool obscureText = false,
-        TextAlign textAlign = TextAlign.start,
-        TextStyle? style,
-        TextStyle? hintStyle,
-        Color borderColor = AppColor.inputBorder,
-        EdgeInsets contentPadding = const EdgeInsets.all(8),
-        Alignment alignment = Alignment.center,
-        Function(String)? onChanged,
-        Function()? onEditingComplete,
-      }) {
+    TextEditingController controller, {
+    double? height,
+    double? width,
+    int? maxLines,
+    int? maxLength,
+    TextInputType textInputType = TextInputType.text,
+    String hintText = '',
+    bool? enabled,
+    bool autofocus = false,
+    bool obscureText = false,
+    TextAlign textAlign = TextAlign.start,
+    TextStyle? style,
+    TextStyle? hintStyle,
+    Color borderColor = AppColor.inputBorder,
+    EdgeInsets contentPadding = const EdgeInsets.all(8),
+    Alignment alignment = Alignment.center,
+    Function(String)? onChanged,
+    Function()? onEditingComplete,
+  }) {
     final FocusNode _focusNode = FocusNode();
     return GestureDetector(
       onTap: () => _focusNode.requestFocus(),
@@ -70,13 +69,13 @@ class AppInput {
   }
 
   static Widget small(
-      TextEditingController controller, {
-        String hintText = '',
-        TextInputType textInputType = TextInputType.text,
-        bool obscureText = false,
-        bool autofocus = false,
-        double? height,
-      }) {
+    TextEditingController controller, {
+    String hintText = '',
+    TextInputType textInputType = TextInputType.text,
+    bool obscureText = false,
+    bool autofocus = false,
+    double? height,
+  }) {
     return AppInput.base(
       controller,
       height: height ?? AppInput.smallHeight,
@@ -92,17 +91,17 @@ class AppInput {
 
   static Widget medium(TextEditingController controller,
       {int? maxLines,
-        double? height,
-        double? width,
-        String hintText = '',
-        TextInputType textInputType = TextInputType.text,
-        TextAlign textAlign = TextAlign.start,
-        bool isDisabled = false,
-        bool obscureText = false,
-        bool autofocus = false,
-        int? maxLength,
-        Function(String)? onChanged,
-        Function()? onEditingComplete}) {
+      double? height,
+      double? width,
+      String hintText = '',
+      TextInputType textInputType = TextInputType.text,
+      TextAlign textAlign = TextAlign.start,
+      bool isDisabled = false,
+      bool obscureText = false,
+      bool autofocus = false,
+      int? maxLength,
+      Function(String)? onChanged,
+      Function()? onEditingComplete}) {
     return AppInput.base(controller,
         height: height ?? AppInput.mediumHeight,
         width: width,
@@ -123,15 +122,15 @@ class AppInput {
   }
 
   static Widget large(
-      TextEditingController controller, {
-        double? height,
-        double? width,
-        int? maxLines = 6,
-        String hintText = '',
-        TextInputType textInputType = TextInputType.multiline,
-        Function(String)? onChanged,
-        bool autofocus = false,
-      }) {
+    TextEditingController controller, {
+    double? height,
+    double? width,
+    int? maxLines = 6,
+    String hintText = '',
+    TextInputType textInputType = TextInputType.multiline,
+    Function(String)? onChanged,
+    bool autofocus = false,
+  }) {
     return AppInput.base(controller,
         height: height ?? AppInput.largeHeight,
         width: width,

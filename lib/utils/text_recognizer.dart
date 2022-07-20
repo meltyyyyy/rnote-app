@@ -6,9 +6,6 @@ import 'package:googleapis/vision/v1.dart';
 import 'google_apis/google_vision_base.dart';
 import 'google_apis/vision_image.dart';
 
-
-
-
 class TextRecognizer {
   TextRecognizer()
       : assert(dotenv.env['GOOGLE_APPLICATION_CREDENTIALS'] != null);

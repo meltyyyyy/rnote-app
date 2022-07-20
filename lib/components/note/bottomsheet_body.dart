@@ -13,9 +13,10 @@ class BottomSheetBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<String> selectedItem = ref.watch(selectedItemProvider);
-    final TextEditingController textCtl = useTextEditingController(text: selectedItem.join(''));
+    final TextEditingController textCtl =
+        useTextEditingController(text: selectedItem.join(''));
 
-    return  Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
