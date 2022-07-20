@@ -1,4 +1,5 @@
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/tasks/v1.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
@@ -21,7 +22,7 @@ class GoogleTasks {
     final List<String> scopes = <String>[TasksApi.tasksScope];
     final GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: scopes,
-      clientId: '456049270232-66rfeltj0a31ie1u6evbe7k4mf981617.apps.googleusercontent.com',
+      clientId: dotenv.env['GOOGLE_TASKS_CLIENT_ID'],
     );
 
     if(await googleSignIn.isSignedIn() &&
@@ -36,15 +37,6 @@ class GoogleTasks {
     _client = client;
     return googleTasks;
   }
-
-  // Future<TaskLists> test(){
-  //   assert(_accessToken != null);
-  //   assert(_client != null);
-  //
-  //   final TasksApi _tasks = TasksApi(_client!);
-  //   final  TasklistsResource _api = _tasks.tasklists;
-  //   return _api.list();
-  // }
 
   /// Get on a collection URI.
   Future<Tasks> list(String taskList) {

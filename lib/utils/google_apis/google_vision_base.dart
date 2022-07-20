@@ -20,11 +20,11 @@ class GoogleVision {
   static Future<GoogleVision> withJwt(String jwtPath) async {
     final GoogleVision googleVision = GoogleVision();
 
-    String _json = await rootBundle.loadString(jwtPath);
-    ServiceAccountCredentials accountCredentials =
+    final String _json = await rootBundle.loadString(jwtPath);
+    final ServiceAccountCredentials accountCredentials =
         ServiceAccountCredentials.fromJson(jsonDecode(_json));
-    List<String> scopes = <String>[VisionApi.cloudVisionScope];
-    AutoRefreshingAuthClient client =
+    final List<String> scopes = <String>[VisionApi.cloudVisionScope];
+    final AutoRefreshingAuthClient client =
         await clientViaServiceAccount(accountCredentials, scopes);
 
     _accessToken = client.credentials.accessToken;
@@ -38,8 +38,8 @@ class GoogleVision {
     assert(_accessToken != null);
     assert(_client != null);
 
-    VisionApi _vision = VisionApi(_client!);
-    ImagesResource _api = _vision.images;
+    final VisionApi _vision = VisionApi(_client!);
+    final ImagesResource _api = _vision.images;
     return _api.annotate(BatchAnnotateImagesRequest(requests: requests));
   }
 
