@@ -21,10 +21,15 @@ class GoogleTasks {
     final List<String> scopes = <String>[TasksApi.tasksScope];
     final GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: scopes,
+      clientId: '456049270232-66rfeltj0a31ie1u6evbe7k4mf981617.apps.googleusercontent.com',
     );
 
+    if(await googleSignIn.isSignedIn() &&
+        _client != null &&
+    _accessToken != null){
+      return googleTasks;
+    }
     await googleSignIn.signIn();
-
     final  AuthClient? client = await googleSignIn.authenticatedClient();
 
     _accessToken = client?.credentials.accessToken;
@@ -32,58 +37,58 @@ class GoogleTasks {
     return googleTasks;
   }
 
-  Future<TaskLists> test(){
+  // Future<TaskLists> test(){
+  //   assert(_accessToken != null);
+  //   assert(_client != null);
+  //
+  //   final TasksApi _tasks = TasksApi(_client!);
+  //   final  TasklistsResource _api = _tasks.tasklists;
+  //   return _api.list();
+  // }
+
+  /// Get on a collection URI.
+  Future<Tasks> list(String taskList) {
     assert(_accessToken != null);
     assert(_client != null);
 
     final TasksApi _tasks = TasksApi(_client!);
-    final  TasklistsResource _api = _tasks.tasklists;
-    return _api.list();
+    final TasksResource _api = _tasks.tasks;
+    return _api.list(taskList, maxResults: 10);
   }
 
-  // /// Get on a collection URI.
-  // Future<Tasks> list(String taskList) {
-  //   assert(_accessToken != null);
-  //   assert(_client != null);
-  //
-  //   final TasksApi _tasks = TasksApi(_client!);
-  //   final TasksResource _api = _tasks.tasks;
-  //   return _api.list(taskList, maxResults: 10);
-  // }
-  //
-  // Future<Task> get(String taskList, String task) async {
-  //   assert(_accessToken != null);
-  //   assert(_client != null);
-  //
-  //   final TasksApi _tasks = TasksApi(_client!);
-  //   final TasksResource _api = _tasks.tasks;
-  //   return _api.get(taskList, task);
-  // }
-  //
-  // Future<Task> insert(Task request, String taskList) async {
-  //   assert(_accessToken != null);
-  //   assert(_client != null);
-  //
-  //   final TasksApi _tasks = TasksApi(_client!);
-  //   final TasksResource _api = _tasks.tasks;
-  //   return _api.insert(request, taskList);
-  // }
-  //
-  // Future<Task> update(Task request, String taskList, String task) async {
-  //   assert(_accessToken != null);
-  //   assert(_client != null);
-  //
-  //   final TasksApi _tasks = TasksApi(_client!);
-  //   final TasksResource _api = _tasks.tasks;
-  //   return _api.update(request, taskList, task);
-  // }
-  //
-  // Future<void> delete(String taskList, String task) async {
-  //   assert(_accessToken != null);
-  //   assert(_client != null);
-  //
-  //   final TasksApi _tasks = TasksApi(_client!);
-  //   final TasksResource _api = _tasks.tasks;
-  //   return _api.delete(taskList, task);
-  // }
+  Future<Task> get(String taskList, String task) async {
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.get(taskList, task);
+  }
+
+  Future<Task> insert(Task request, String taskList) async {
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.insert(request, taskList);
+  }
+
+  Future<Task> update(Task request, String taskList, String task) async {
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.update(request, taskList, task);
+  }
+
+  Future<void> delete(String taskList, String task) async {
+    assert(_accessToken != null);
+    assert(_client != null);
+
+    final TasksApi _tasks = TasksApi(_client!);
+    final TasksResource _api = _tasks.tasks;
+    return _api.delete(taskList, task);
+  }
 }

@@ -37,7 +37,7 @@ class Note extends HookConsumerWidget {
                     actionTitle: '追加',
                     proceed: () {
                       final TaskController taskCtl = TaskController();
-                      taskCtl.fetchTasks();
+                      taskCtl.postTask(selectedItem.join(''));
                     },
                     context: context),
                 const SizedBox(height: 8),
@@ -46,7 +46,8 @@ class Note extends HookConsumerWidget {
                     textInputType: TextInputType.text,
                     hintText: 'レシピ'),
               ],
-            ));
+            )
+        );
       }
     });
 
