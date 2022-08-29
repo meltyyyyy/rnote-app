@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../providers/note/selected_item.dart';
-import '../../utils/task_controller.dart';
 import '../app_bottomsheet.dart';
 import '../app_input.dart';
 
@@ -23,10 +22,7 @@ class BottomSheetBody extends HookConsumerWidget {
         AppBottomSheet.bottomSheetTitle(
             title: '買いものリストに追加',
             actionTitle: '追加',
-            proceed: () {
-              final TaskController taskCtl = TaskController();
-              taskCtl.postTask(textCtl.text);
-            },
+            proceed: () {},
             context: context),
         const SizedBox(height: 8),
         AppInput.medium(textCtl,
