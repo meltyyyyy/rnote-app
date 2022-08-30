@@ -25,6 +25,7 @@ dependencies:
   google_sign_in: ^5.4.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.6
   firebase_auth: ^3.7.0
+  firebase_core: ^1.21.1
 
 dev_dependencies:
   flutter_test:
