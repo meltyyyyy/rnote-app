@@ -3,18 +3,38 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SignIn extends HookWidget {
   const SignIn({Key? key}) : super(key: key);
-  static const BoxConstraints _constraints = BoxConstraints(
-      minWidth: 240, maxWidth: 280, minHeight: 40, maxHeight: 48);
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _emailCtl = useTextEditingController(text: '');
+    final TextEditingController _passwordCtl = useTextEditingController(text: '');
+
+    const BoxConstraints _constraints = BoxConstraints(
+        minWidth: 240, maxWidth: 280, minHeight: 40, maxHeight: 48);
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          const Align(
+          Align(
             alignment: Alignment.center,
-            child: Text('logo'),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextFormField(
+                    controller: _emailCtl,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(hintText: 'email'),
+                  ),
+                  TextFormField(
+                    controller: _passwordCtl,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(hintText: 'password'),
+                  )
+                ],
+              ),
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -24,7 +44,9 @@ class SignIn extends HookWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       child: Container(
                           constraints: _constraints,
                           alignment: Alignment.center,

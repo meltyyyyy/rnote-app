@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../providers/note/selected_item.dart';
+import '../../providers/note/selected_item_provider.dart';
 import '../app_bottomsheet.dart';
 import '../app_input.dart';
 

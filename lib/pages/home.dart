@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/bottom_tab_index.dart';
-import '../providers/bottom_sheet_state.dart';
-import '../providers/bottom_tab_index.dart';
+import '../providers/bottom_sheet_state_provider.dart';
+import '../providers/bottom_tab_index_provider.dart';
 import 'mypage/mypage.dart';
 import 'note/note.dart';
 import 'recipes/recipes.dart';

@@ -10,9 +10,9 @@ import '../../components/app_bottomsheet.dart';
 import '../../components/app_input.dart';
 import '../../components/note/bottomsheet_body.dart';
 import '../../components/note/image_viewer.dart';
-import '../../controllers/note/image.dart';
-import '../../providers/bottom_sheet_state.dart';
-import '../../providers/note/image.dart';
+import '../../controllers/note/image_controller.dart';
+import '../../providers/bottom_sheet_state_provider.dart';
+import '../../providers/note/image_provider.dart';
 
 class Note extends HookConsumerWidget {
   const Note({Key? key}) : super(key: key);

@@ -2,13 +2,9 @@ class User {
   User(
       {required this.id,
       required this.email,
-      this.name,
-      this.nickname,
-      this.age});
+      this.nickname,});
 
   int id;
   String email;
-  String? name;
   String? nickname;
-  int? age;
 }
