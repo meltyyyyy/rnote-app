@@ -27,6 +27,7 @@ dependencies:
   firebase_auth: ^3.7.0
   firebase_core: ^1.21.1
   cloud_firestore: ^3.4.6
+  freezed_annotation: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +35,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   json_serializable: ^6.3.1
   build_runner: ^2.1.11
+  freezed: ^2.1.0+1
 
 flutter:
   uses-material-design: true
