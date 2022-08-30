@@ -7,7 +7,8 @@ class SignIn extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController _emailCtl = useTextEditingController(text: '');
-    final TextEditingController _passwordCtl = useTextEditingController(text: '');
+    final TextEditingController _passwordCtl =
+        useTextEditingController(text: '');
 
     const BoxConstraints _constraints = BoxConstraints(
         minWidth: 240, maxWidth: 280, minHeight: 40, maxHeight: 48);
@@ -44,9 +45,7 @@ class SignIn extends HookWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ElevatedButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       child: Container(
                           constraints: _constraints,
                           alignment: Alignment.center,

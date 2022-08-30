@@ -3,10 +3,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'pages/home.dart';
 import 'pages/launcher.dart';
-import 'pages/sign_in.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: '.env');
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Future.wait<void>(<Future<dynamic>>[dotenv.load(fileName: '.env')]);
   runApp(const ProviderScope(child: RnoteApp()));
 }
 
