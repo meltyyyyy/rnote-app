@@ -17,53 +17,63 @@ class SignUp extends HookConsumerWidget {
 
     const BoxConstraints _constraints = BoxConstraints(
         minWidth: 240, maxWidth: 280, minHeight: 40, maxHeight: 48);
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Align(
+    final FocusNode _focusNode = FocusNode();
+    return Focus(
+      focusNode: _focusNode,
+      child: GestureDetector(
+        onTap: () => _focusNode.requestFocus(),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Stack(
             alignment: Alignment.center,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailCtl,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(hintText: 'email'),
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextFormField(
+                        controller: _emailCtl,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(hintText: 'email'),
+                      ),
+                      TextFormField(
+                        controller: _passwordCtl,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: const InputDecoration(hintText: 'password'),
+                      )
+                    ],
                   ),
-                  TextFormField(
-                    controller: _passwordCtl,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: const InputDecoration(hintText: 'password'),
-                  )
-                ],
+                ),
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ElevatedButton(
-                      onPressed: () => userCtl.signUp(_emailCtl.text, _passwordCtl.text).then((bool result) {
-                        if (result){
-                          Navigator.pushReplacementNamed(context, '/home');
-                        }
-                      }),
-                      child: Container(
-                          constraints: _constraints,
-                          alignment: Alignment.center,
-                          child: const Text('sign up')))
-                ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ElevatedButton(
+                          onPressed: () => userCtl.signUp(_emailCtl.text, _passwordCtl.text).then((bool result) {
+                            if (result){
+                              Navigator.pushReplacementNamed(context, '/home');
+                            }
+                          }),
+                          child: Container(
+                              constraints: _constraints,
+                              alignment: Alignment.center,
+                              child: const Text('sign up')))
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

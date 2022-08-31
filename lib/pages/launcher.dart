@@ -13,7 +13,7 @@ class Launcher extends ConsumerWidget {
     final bool isSignIn = ref.read(authProvider.notifier).isSignIn;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (isSignIn) {
+      if (false) {
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         Navigator.pushReplacementNamed(context, '/sign_in');
