@@ -7,10 +7,12 @@ import 'firebase/auth_controller.dart';
 import 'firebase/firestore_controller.dart';
 
 class UserController extends StateNotifier<User> {
-  UserController(this._ref) : super(const User()) { _init(); }
+  UserController(this._ref) : super(const User()) {
+    _init();
+  }
 
   final Ref _ref;
-  
+
   Future<void> _init() async {
     final FirestoreController storeCtl = _ref.read(storeProvider);
     final User user = await storeCtl.fetchCurrentUser();
@@ -22,7 +24,7 @@ class UserController extends StateNotifier<User> {
     final FirestoreController storeCtl = _ref.read(storeProvider);
 
     final bool result = await authCtl.signUp(email, password);
-    if(result){
+    if (result) {
       state = User(id: authCtl.userId, email: authCtl.email);
       storeCtl.setUser(state);
       return result;
@@ -36,7 +38,7 @@ class UserController extends StateNotifier<User> {
     final FirestoreController storeCtl = _ref.read(storeProvider);
 
     final bool result = await authCtl.signIn(email, password);
-    if(result){
+    if (result) {
       state = await storeCtl.fetchCurrentUser();
       return result;
     }

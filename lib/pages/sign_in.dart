@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../controllers/user_controller.dart';
+import '../providers/firebase/auth_provider.dart';
 import '../providers/user_ptovider.dart';
 import 'sign_up.dart';
 
@@ -12,6 +13,7 @@ class SignIn extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserController userCtl = ref.read(userProvider.notifier);
+    final String error = ref.watch(authErrorProvider);
 
     final TextEditingController _emailCtl = useTextEditingController(text: '');
     final TextEditingController _passwordCtl =
@@ -47,7 +49,11 @@ class SignIn extends HookConsumerWidget {
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: const InputDecoration(hintText: 'password'),
-                      )
+                      ),
+                      const SizedBox(height: 16),
+                      Text(error,
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.red))
                     ],
                   ),
                 ),
@@ -60,11 +66,14 @@ class SignIn extends HookConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       ElevatedButton(
-                          onPressed: () => userCtl.signIn(_emailCtl.text, _passwordCtl.text).then((bool result) {
-                            if(result){
-                              Navigator.pushReplacementNamed(context, '/home');
-                            }
-                          }),
+                          onPressed: () => userCtl
+                                  .signIn(_emailCtl.text, _passwordCtl.text)
+                                  .then((bool result) {
+                                if (result) {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/home');
+                                }
+                              }),
                           child: Container(
                               constraints: _constraints,
                               alignment: Alignment.center,
@@ -75,7 +84,8 @@ class SignIn extends HookConsumerWidget {
                       ElevatedButton(
                           onPressed: () => Navigator.push(
                               context,
-                              MaterialPageRoute<void>(builder: (_) => const SignUp())),
+                              MaterialPageRoute<void>(
+                                  builder: (_) => const SignUp())),
                           child: Container(
                               constraints: _constraints,
                               alignment: Alignment.center,

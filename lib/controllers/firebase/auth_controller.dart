@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/firebase/auth_provider.dart';
 
 class AuthController extends StateNotifier<User?> {
-  AuthController(this._ref, { User? initialUser }) : super(initialUser) {
+  AuthController(this._ref, {User? initialUser}) : super(initialUser) {
     _auth.authStateChanges().listen((User? user) {
       state = user;
     });
@@ -19,12 +19,13 @@ class AuthController extends StateNotifier<User?> {
   bool get isSignIn => _auth.currentUser != null;
 
   Future<bool> signIn(String email, String password) async {
-    final StateController<String> errorCtl = _ref.read(authErrorProvider.notifier);
+    final StateController<String> errorCtl =
+        _ref.read(authErrorProvider.notifier);
     try {
       final UserCredential credential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       return credential.user != null;
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       errorCtl.update((_) => getErrorMessage(e));
       debugPrintStack(stackTrace: e.stackTrace);
       return false;
@@ -32,12 +33,13 @@ class AuthController extends StateNotifier<User?> {
   }
 
   Future<bool> signUp(String email, String password) async {
-    final StateController<String> errorCtl = _ref.read(authErrorProvider.notifier);
+    final StateController<String> errorCtl =
+        _ref.read(authErrorProvider.notifier);
     try {
       final UserCredential credential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       return credential.user != null;
-    } on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       errorCtl.update((_) => getErrorMessage(e));
       debugPrintStack(stackTrace: e.stackTrace);
       return false;
@@ -48,7 +50,7 @@ class AuthController extends StateNotifier<User?> {
     _auth.signOut();
   }
 
-  String getErrorMessage(FirebaseAuthException e){
+  String getErrorMessage(FirebaseAuthException e) {
     switch (e.code) {
       case 'wrong-password':
         return 'パスワードが間違っています';
