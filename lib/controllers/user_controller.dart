@@ -18,10 +18,13 @@ class UserController extends StateNotifier<User> {
   }
 
   Future<bool> signUp(String email, String password) async {
-    final AuthController authCtl = _ref.read(authProvider);
+    final AuthController authCtl = _ref.read(authProvider.notifier);
+    final FirestoreController storeCtl = _ref.read(storeProvider);
+
     final bool result = await authCtl.signUp(email, password);
     if(result){
       state = User(id: authCtl.userId, email: authCtl.email);
+      storeCtl.setUser(state);
       return result;
     }
 
@@ -29,7 +32,7 @@ class UserController extends StateNotifier<User> {
   }
 
   Future<bool> signIn(String email, String password) async {
-    final AuthController authCtl = _ref.read(authProvider);
+    final AuthController authCtl = _ref.read(authProvider.notifier);
     final FirestoreController storeCtl = _ref.read(storeProvider);
 
     final bool result = await authCtl.signIn(email, password);

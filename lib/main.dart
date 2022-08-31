@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'pages/home.dart';
 import 'pages/launcher.dart';
+import 'pages/sign_in.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,7 @@ class RnoteApp extends StatelessWidget {
       routes: <String, Widget Function(BuildContext)>{
         '/': (_) => const Launcher(),
         '/home': (_) => const Home(),
+        '/sign_in': (_) => const SignIn(),
       },
       initialRoute: '/',
     );

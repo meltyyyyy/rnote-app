@@ -1,18 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'sign_in.dart';
+import '../controllers/firebase/auth_controller.dart';
+import '../providers/firebase/auth_provider.dart';
 
-class Launcher extends StatelessWidget {
+class Launcher extends ConsumerWidget {
   const Launcher({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    const bool isSignIn = false;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bool isSignIn = ref.read(authProvider.notifier).isSignIn;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!isSignIn) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute<void>(builder: (_) => const SignIn()));
+      if (isSignIn) {
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        Navigator.pushReplacementNamed(context, '/sign_in');
       }
     });
 

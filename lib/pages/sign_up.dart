@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../controllers/user_controller.dart';
+import '../providers/user_ptovider.dart';
+
 class SignUp extends HookConsumerWidget {
   const SignUp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final UserController userCtl = ref.read(userProvider.notifier);
     final TextEditingController _emailCtl = useTextEditingController(text: '');
     final TextEditingController _passwordCtl =
         useTextEditingController(text: '');
@@ -46,7 +50,11 @@ class SignUp extends HookConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => userCtl.signUp(_emailCtl.text, _passwordCtl.text).then((bool result) {
+                        if (result){
+                          Navigator.pushReplacementNamed(context, '/home');
+                        }
+                      }),
                       child: Container(
                           constraints: _constraints,
                           alignment: Alignment.center,

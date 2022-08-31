@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../controllers/user_controller.dart';
+import '../providers/user_ptovider.dart';
 import 'sign_up.dart';
 
-class SignIn extends HookWidget {
+class SignIn extends HookConsumerWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final UserController userCtl = ref.read(userProvider.notifier);
+
     final TextEditingController _emailCtl = useTextEditingController(text: '');
     final TextEditingController _passwordCtl =
         useTextEditingController(text: '');
@@ -21,19 +26,19 @@ class SignIn extends HookWidget {
           Align(
             alignment: Alignment.center,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 24),
+              margin: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextFormField(
                     controller: _emailCtl,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(hintText: 'email'),
+                    decoration: const InputDecoration(hintText: 'email'),
                   ),
                   TextFormField(
                     controller: _passwordCtl,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(hintText: 'password'),
+                    decoration: const InputDecoration(hintText: 'password'),
                   )
                 ],
               ),
@@ -47,7 +52,11 @@ class SignIn extends HookWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => userCtl.signIn(_emailCtl.text, _passwordCtl.text).then((bool result) {
+                        if(result){
+                          Navigator.pushReplacementNamed(context, '/home');
+                        }
+                      }),
                       child: Container(
                           constraints: _constraints,
                           alignment: Alignment.center,

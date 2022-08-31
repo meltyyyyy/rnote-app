@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../models/user.dart';
 import '../../providers/firebase/auth_provider.dart';
-import 'auth_controller.dart';
 
 class FirestoreController {
   FirestoreController(this._ref) : super();
@@ -12,7 +11,7 @@ class FirestoreController {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
 
   Future<User> fetchCurrentUser() async {
-    final String uid = _ref.read(authProvider).userId;
+    final String uid = _ref.read(authProvider.notifier).userId;
 
     // userId is '' when not logged in
     if (uid.isEmpty) {
