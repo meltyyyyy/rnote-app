@@ -56,6 +56,7 @@ class AppBottomSheet extends HookConsumerWidget {
                       const SizedBox(height: 16),
                       AppDivider.dottedDivider(),
                       const SizedBox(height: 16),
+                      TextField(),
                     ],
                   ))));
 

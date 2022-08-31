@@ -6,12 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../components/app_bottomsheet.dart';
-import '../../components/app_input.dart';
-import '../../components/note/bottomsheet_body.dart';
 import '../../components/note/image_viewer.dart';
 import '../../controllers/note/image_controller.dart';
-import '../../providers/bottom_sheet_state_provider.dart';
 import '../../providers/note/image_provider.dart';
 
 class Note extends HookConsumerWidget {
@@ -22,13 +18,6 @@ class Note extends HookConsumerWidget {
     final String base64Image = ref.watch(base64ImageProvider);
     final Base64ImageController base64ImageCtl =
         ref.watch(base64ImageProvider.notifier);
-
-    ref.listen(bottomSheetStateProvider, (bool? previous, bool next) {
-      if (next) {
-        AppBottomSheet.show(context, body: const BottomSheetBody()).then((_) =>
-            ref.watch(bottomSheetStateProvider.notifier).update((_) => false));
-      }
-    });
 
     Future<void> _annotate() async {
       final ImagePicker imagePicker = ImagePicker();
