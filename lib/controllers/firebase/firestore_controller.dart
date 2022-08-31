@@ -14,14 +14,21 @@ class FirestoreController {
   Future<User> fetchCurrentUser() async {
     final String uid = _ref.read(authProvider).userId;
 
-    if (uid.isEmpty){
-      return initialUser;
+    // userId is '' when not logged in
+    if (uid.isEmpty) {
+      return const User();
     }
 
-    final DocumentSnapshot<Map<String, dynamic>> userDoc = await _store.collection('user').doc(uid).get();
-    assert (userDoc.data() != null, 'Firestore user/$uid is missing');
-    final Map<String, dynamic> userJson = userDoc.data() ?? initialUser.toJson();
+    final DocumentSnapshot<Map<String, dynamic>> userDoc =
+        await _store.collection('user').doc(uid).get();
+    assert(userDoc.data() != null, 'Firestore user/$uid is missing');
+    final Map<String, dynamic> userJson =
+        userDoc.data() ?? const User().toJson();
     return User.fromJson(userJson);
   }
-  
+
+  void setUser(User user) {
+    final Map<String, dynamic> userJson = user.toJson();
+    _store.collection('user').doc(user.id).set(userJson);
+  }
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'sign_up.dart';
-
-class SignIn extends HookWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignUp extends HookConsumerWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController _emailCtl = useTextEditingController(text: '');
     final TextEditingController _passwordCtl =
         useTextEditingController(text: '');
@@ -28,12 +27,12 @@ class SignIn extends HookWidget {
                   TextFormField(
                     controller: _emailCtl,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(hintText: 'email'),
+                    decoration: const InputDecoration(hintText: 'email'),
                   ),
                   TextFormField(
                     controller: _passwordCtl,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(hintText: 'password'),
+                    decoration: const InputDecoration(hintText: 'password'),
                   )
                 ],
               ),
@@ -48,17 +47,6 @@ class SignIn extends HookWidget {
                 children: <Widget>[
                   ElevatedButton(
                       onPressed: () {},
-                      child: Container(
-                          constraints: _constraints,
-                          alignment: Alignment.center,
-                          child: const Text('sign in'))),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(builder: (_) => const SignUp())),
                       child: Container(
                           constraints: _constraints,
                           alignment: Alignment.center,

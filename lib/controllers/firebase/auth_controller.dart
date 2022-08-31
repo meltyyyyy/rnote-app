@@ -8,6 +8,7 @@ class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String get userId => _auth.currentUser?.uid ?? '';
+  String get email => _auth.currentUser?.email ?? '';
 
   Future<bool> signIn(String email, String password) async {
     final UserCredential credential = await _auth.signInWithEmailAndPassword(
@@ -25,7 +26,7 @@ class AuthController {
     _auth.signOut();
   }
 
-  bool isSignIn(){
+  bool isSignIn() {
     return _auth.currentUser != null;
   }
 }

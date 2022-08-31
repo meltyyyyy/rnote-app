@@ -20,7 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String? get nickname => throw _privateConstructorUsedError;
 
@@ -33,7 +33,7 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
-  $Res call({int id, String email, String? nickname});
+  $Res call({String id, String email, String? nickname});
 }
 
 /// @nodoc
@@ -54,7 +54,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
       __$$_UserCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String email, String? nickname});
+  $Res call({String id, String email, String? nickname});
 }
 
 /// @nodoc
@@ -91,11 +91,11 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? nickname = freezed,
   }) {
     return _then(_$_User(
-      id == freezed
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      email == freezed
+              as String,
+      email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
@@ -110,13 +110,15 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_User implements _User {
-  const _$_User(this.id, this.email, {this.nickname});
+  const _$_User({this.id = '', this.email = '', this.nickname});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
-  final int id;
+  @JsonKey()
+  final String id;
   @override
+  @JsonKey()
   final String email;
   @override
   final String? nickname;
@@ -158,13 +160,13 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  const factory _User(final int id, final String email,
-      {final String? nickname}) = _$_User;
+  const factory _User(
+      {final String id, final String email, final String? nickname}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get email;
   @override
