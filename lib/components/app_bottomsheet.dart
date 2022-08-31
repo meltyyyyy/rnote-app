@@ -133,7 +133,6 @@ class BottomSheetContent extends HookConsumerWidget {
           style: const TextStyle(fontSize: 12),
           decoration: const InputDecoration(
             hintText: 'メモ',
-
           ),
         ),
         const SizedBox(height: 8),
