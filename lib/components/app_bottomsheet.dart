@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/app_color.dart';
 import 'app_divider.dart';
 import 'app_text.dart';
 import 'app_textbutton.dart';
 
-class AppBottomSheet {
-  static Future<void> show(BuildContext context,
-          {required Widget body, double? height}) =>
+class AppBottomSheet extends HookConsumerWidget {
+  const AppBottomSheet({Key? key}) : super(key: key);
+
+  static Future<void> show(BuildContext context, {double? height}) =>
       showModalBottomSheet(
           isScrollControlled: true,
           shape: const RoundedRectangleBorder(
@@ -25,45 +27,60 @@ class AppBottomSheet {
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                           topLeft: Radius.circular(20))),
-                  child: body)));
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          AppTextButton(
+                              text: 'back',
+                              textColor: AppColor.text,
+                              onTap: () => Navigator.of(context).pop()),
+                          AppTextButton(
+                            text: 'save',
+                            textColor: AppColor.normalButton,
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                          alignment: Alignment.center,
+                          child: AppText(
+                            '買いたいもの',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          )),
+                      const SizedBox(height: 16),
+                      AppDivider.dottedDivider(),
+                      const SizedBox(height: 16),
+                    ],
+                  ))));
 
-  static Widget bottomSheetTitle({
-    required String title,
-    required Function() proceed,
-    required BuildContext context,
-    String leadingTitle = '戻る',
-    String actionTitle = '変更',
-  }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            AppTextButton(
-                text: leadingTitle,
-                textColor: AppColor.text,
-                onTap: () => Navigator.of(context).pop()),
-            AppTextButton(
-              text: actionTitle,
-              textColor: AppColor.normalButton,
-              onTap: proceed,
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Container(
-            alignment: Alignment.center,
-            child: AppText(
-              title,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            )),
-        const SizedBox(height: 16),
-        AppDivider.dottedDivider(),
-        const SizedBox(height: 16),
-      ],
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return BottomAppBar(
+      shape: const CircularNotchedRectangle(),
+      elevation: 24,
+      child: Container(
+          height: 80,
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+          color: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const <Widget>[
+                  Icon(Icons.menu, color: AppColor.text),
+                  SizedBox.shrink()
+                ],
+              ),
+            ],
+          )),
     );
   }
 }

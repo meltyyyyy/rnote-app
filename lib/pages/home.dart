@@ -52,37 +52,16 @@ class Home extends HookConsumerWidget {
         controller: _tabCtl,
         children: _tabs,
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => AppBottomSheet.show(context),
+          backgroundColor: Colors.white,
+          child: const Icon(
+            Icons.add,
+            color: AppColor.normalButton,
+            size: 32,
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        elevation: 24,
-        child: Container(
-            height: 80,
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-            color: Colors.transparent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    AppTextButton(
-                        text: 'back',
-                        textColor: AppColor.text,
-                        onTap: () => Navigator.of(context).pop()),
-                    AppTextButton(
-                      text: 'save',
-                      textColor: AppColor.normalButton,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-              ],
-            )),
-      ),
+      bottomNavigationBar: AppBottomSheet(),
     );
   }
 }
