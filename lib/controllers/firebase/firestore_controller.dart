@@ -34,12 +34,38 @@ class FirestoreController {
   }
 
   Future<List<ItemList>> fetchItemLists() async {
+    final List<ItemList> itemLists = <ItemList>[];
+
     final QuerySnapshot<Map<String, dynamic>> itemListDoc =
         await _store.collection('itemList').get();
-    final List<ItemList> itemLists = itemListDoc.docs
-        .map((QueryDocumentSnapshot<Map<String, dynamic>> e) =>
-            ItemList.fromJson(e.data()))
-        .toList();
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshots =
+        itemListDoc.docs;
+
+    for (QueryDocumentSnapshot<Map<String, dynamic>> snapshot in snapshots) {
+      final Map<String, dynamic> itemListJson = snapshot.data();
+
+      // For Firestore, List<Item> items cannot be saved directly.
+      // Save List<String> itemIds instead.
+      assert(itemListJson.containsKey('items'),
+          'Firestore itemList does not contain key items');
+      final List<String> itemIds = itemListJson.containsKey('items')
+          ? itemListJson['items'] as List<String>
+          : <String>[];
+
+      // For each itemIds, fetch actual item.
+      final List<Item> items = <Item>[];
+      for (String id in itemIds) {
+        final DocumentSnapshot<Map<String, dynamic>> itemDoc =
+            await _store.collection('items').doc(id).get();
+        final Map<String, dynamic> itemJson =
+            itemDoc.data() ?? const Item().toJson();
+        items.add(Item.fromJson(itemJson));
+      }
+
+      // overwrite items property : List<String> -> List<Item>
+      itemListJson['items'] = items;
+      itemLists.add(ItemList.fromJson(itemListJson));
+    }
     return itemLists;
   }
 
@@ -50,5 +76,15 @@ class FirestoreController {
     final Map<String, dynamic> itemListJson =
         itemListDoc.data() ?? const ItemList().toJson();
     return ItemList.fromJson(itemListJson);
+  }
+
+  void setItemList(ItemList itemList) {
+    final Map<String, dynamic> itemListJson = itemList.toJson();
+    _store.collection('itemList').doc(itemList.id).set(itemListJson);
+  }
+
+  void setItem(Item item) {
+    final Map<String, dynamic> itemJson = item.toJson();
+    _store.collection('items').doc(item.id).set(itemJson);
   }
 }

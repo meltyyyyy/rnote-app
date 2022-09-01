@@ -26,7 +26,7 @@ class AuthController extends StateNotifier<User?> {
           email: email, password: password);
       return credential.user != null;
     } on FirebaseAuthException catch (e) {
-      errorCtl.update((_) => getErrorMessage(e));
+      errorCtl.update((_) => _toErrorMessage(e));
       debugPrintStack(stackTrace: e.stackTrace);
       return false;
     }
@@ -40,7 +40,7 @@ class AuthController extends StateNotifier<User?> {
           .createUserWithEmailAndPassword(email: email, password: password);
       return credential.user != null;
     } on FirebaseAuthException catch (e) {
-      errorCtl.update((_) => getErrorMessage(e));
+      errorCtl.update((_) => _toErrorMessage(e));
       debugPrintStack(stackTrace: e.stackTrace);
       return false;
     }
@@ -50,7 +50,7 @@ class AuthController extends StateNotifier<User?> {
     _auth.signOut();
   }
 
-  String getErrorMessage(FirebaseAuthException e) {
+  String _toErrorMessage(FirebaseAuthException e) {
     switch (e.code) {
       case 'wrong-password':
         return 'パスワードが間違っています';
