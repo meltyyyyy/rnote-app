@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/vision/v1.dart' as vision;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../controllers/note/image_controller.dart';
+import '../../controllers/scanner/image_controller.dart';
 import '../../providers/note/image_provider.dart';
 import 'annotated_box.dart';
 

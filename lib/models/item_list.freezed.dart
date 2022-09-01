@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'items.dart';
+part of 'item_list.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,36 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Items _$ItemsFromJson(Map<String, dynamic> json) {
-  return _Items.fromJson(json);
+ItemList _$ItemListFromJson(Map<String, dynamic> json) {
+  return _ItemList.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Items {
+mixin _$ItemList {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   List<Item> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ItemsCopyWith<Items> get copyWith => throw _privateConstructorUsedError;
+  $ItemListCopyWith<ItemList> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ItemsCopyWith<$Res> {
-  factory $ItemsCopyWith(Items value, $Res Function(Items) then) =
-      _$ItemsCopyWithImpl<$Res>;
+abstract class $ItemListCopyWith<$Res> {
+  factory $ItemListCopyWith(ItemList value, $Res Function(ItemList) then) =
+      _$ItemListCopyWithImpl<$Res>;
   $Res call({String id, String title, List<Item> items});
 }
 
 /// @nodoc
-class _$ItemsCopyWithImpl<$Res> implements $ItemsCopyWith<$Res> {
-  _$ItemsCopyWithImpl(this._value, this._then);
+class _$ItemListCopyWithImpl<$Res> implements $ItemListCopyWith<$Res> {
+  _$ItemListCopyWithImpl(this._value, this._then);
 
-  final Items _value;
+  final ItemList _value;
   // ignore: unused_field
-  final $Res Function(Items) _then;
+  final $Res Function(ItemList) _then;
 
   @override
   $Res call({
@@ -68,21 +69,23 @@ class _$ItemsCopyWithImpl<$Res> implements $ItemsCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_ItemsCopyWith<$Res> implements $ItemsCopyWith<$Res> {
-  factory _$$_ItemsCopyWith(_$_Items value, $Res Function(_$_Items) then) =
-      __$$_ItemsCopyWithImpl<$Res>;
+abstract class _$$_ItemListCopyWith<$Res> implements $ItemListCopyWith<$Res> {
+  factory _$$_ItemListCopyWith(
+          _$_ItemList value, $Res Function(_$_ItemList) then) =
+      __$$_ItemListCopyWithImpl<$Res>;
   @override
   $Res call({String id, String title, List<Item> items});
 }
 
 /// @nodoc
-class __$$_ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
-    implements _$$_ItemsCopyWith<$Res> {
-  __$$_ItemsCopyWithImpl(_$_Items _value, $Res Function(_$_Items) _then)
-      : super(_value, (v) => _then(v as _$_Items));
+class __$$_ItemListCopyWithImpl<$Res> extends _$ItemListCopyWithImpl<$Res>
+    implements _$$_ItemListCopyWith<$Res> {
+  __$$_ItemListCopyWithImpl(
+      _$_ItemList _value, $Res Function(_$_ItemList) _then)
+      : super(_value, (v) => _then(v as _$_ItemList));
 
   @override
-  _$_Items get _value => super._value as _$_Items;
+  _$_ItemList get _value => super._value as _$_ItemList;
 
   @override
   $Res call({
@@ -90,7 +93,7 @@ class __$$_ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
     Object? title = freezed,
     Object? items = freezed,
   }) {
-    return _then(_$_Items(
+    return _then(_$_ItemList(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -109,13 +112,13 @@ class __$$_ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Items implements _Items {
-  const _$_Items(
+class _$_ItemList implements _ItemList {
+  const _$_ItemList(
       {this.id = '', this.title = '', final List<Item> items = const <Item>[]})
       : _items = items;
 
-  factory _$_Items.fromJson(Map<String, dynamic> json) =>
-      _$$_ItemsFromJson(json);
+  factory _$_ItemList.fromJson(Map<String, dynamic> json) =>
+      _$$_ItemListFromJson(json);
 
   @override
   @JsonKey()
@@ -133,14 +136,14 @@ class _$_Items implements _Items {
 
   @override
   String toString() {
-    return 'Items(id: $id, title: $title, items: $items)';
+    return 'ItemList(id: $id, title: $title, items: $items)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Items &&
+            other is _$_ItemList &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other._items, _items));
@@ -156,22 +159,24 @@ class _$_Items implements _Items {
 
   @JsonKey(ignore: true)
   @override
-  _$$_ItemsCopyWith<_$_Items> get copyWith =>
-      __$$_ItemsCopyWithImpl<_$_Items>(this, _$identity);
+  _$$_ItemListCopyWith<_$_ItemList> get copyWith =>
+      __$$_ItemListCopyWithImpl<_$_ItemList>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ItemsToJson(
+    return _$$_ItemListToJson(
       this,
     );
   }
 }
 
-abstract class _Items implements Items {
-  const factory _Items(
-      {final String id, final String title, final List<Item> items}) = _$_Items;
+abstract class _ItemList implements ItemList {
+  const factory _ItemList(
+      {final String id,
+      final String title,
+      final List<Item> items}) = _$_ItemList;
 
-  factory _Items.fromJson(Map<String, dynamic> json) = _$_Items.fromJson;
+  factory _ItemList.fromJson(Map<String, dynamic> json) = _$_ItemList.fromJson;
 
   @override
   String get id;
@@ -181,6 +186,6 @@ abstract class _Items implements Items {
   List<Item> get items;
   @override
   @JsonKey(ignore: true)
-  _$$_ItemsCopyWith<_$_Items> get copyWith =>
+  _$$_ItemListCopyWith<_$_ItemList> get copyWith =>
       throw _privateConstructorUsedError;
 }

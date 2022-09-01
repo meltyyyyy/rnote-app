@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../components/note/image_viewer.dart';
-import '../../controllers/note/image_controller.dart';
+import '../../components/scanner/image_viewer.dart';
+import '../../controllers/scanner/image_controller.dart';
 import '../../providers/note/image_provider.dart';
 
-class Note extends HookConsumerWidget {
-  const Note({Key? key}) : super(key: key);
+class Scanner extends HookConsumerWidget {
+  const Scanner({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

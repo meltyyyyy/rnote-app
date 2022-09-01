@@ -3,7 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/app_color.dart';
-import '../../controllers/note/selected_item_controller.dart';
+
+import '../../controllers/scanner/selected_item_controller.dart';
 import '../../providers/note/selected_item_provider.dart';
 
 class AnnotatedBox extends HookConsumerWidget {
