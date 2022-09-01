@@ -73,8 +73,23 @@ class FirestoreController {
     final DocumentSnapshot<Map<String, dynamic>> itemListDoc =
         await _store.collection('itemList').doc(id).get();
     assert(itemListDoc.data() != null, 'Firestore itemList/$id is missing');
-    final Map<String, dynamic> itemListJson =
-        itemListDoc.data() ?? const ItemList().toJson();
+    final Map<String, dynamic> itemListJson = itemListDoc.data() ?? const ItemList().toJson();
+    final List<String> itemIds = itemListJson.containsKey('items')
+        ? itemListJson['items'] as List<String>
+        : <String>[];
+
+    // For each itemIds, fetch actual item.
+    final List<Item> items = <Item>[];
+    for (String id in itemIds) {
+      final DocumentSnapshot<Map<String, dynamic>> itemDoc =
+      await _store.collection('items').doc(id).get();
+      final Map<String, dynamic> itemJson =
+          itemDoc.data() ?? const Item().toJson();
+      items.add(Item.fromJson(itemJson));
+    }
+
+    // overwrite items property : List<String> -> List<Item>
+    itemListJson['items'] = items;
     return ItemList.fromJson(itemListJson);
   }
 
