@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../models/item.dart';
+import '../../models/item_list.dart';
 import '../../models/user.dart';
 import '../../providers/firebase/auth_provider.dart';
 
@@ -29,5 +31,24 @@ class FirestoreController {
   void setUser(User user) {
     final Map<String, dynamic> userJson = user.toJson();
     _store.collection('user').doc(user.id).set(userJson);
+  }
+
+  Future<List<ItemList>> fetchItemLists() async {
+    final QuerySnapshot<Map<String, dynamic>> itemListDoc =
+        await _store.collection('itemList').get();
+    final List<ItemList> itemLists = itemListDoc.docs
+        .map((QueryDocumentSnapshot<Map<String, dynamic>> e) =>
+            ItemList.fromJson(e.data()))
+        .toList();
+    return itemLists;
+  }
+
+  Future<ItemList> fetchItemListById(String id) async {
+    final DocumentSnapshot<Map<String, dynamic>> itemListDoc =
+        await _store.collection('itemList').doc(id).get();
+    assert(itemListDoc.data() != null, 'Firestore itemList/$id is missing');
+    final Map<String, dynamic> itemListJson =
+        itemListDoc.data() ?? const ItemList().toJson();
+    return ItemList.fromJson(itemListJson);
   }
 }
