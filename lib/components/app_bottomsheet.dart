@@ -22,19 +22,17 @@ class AppBottomSheet extends HookConsumerWidget {
             return Padding(
                 padding: MediaQuery.of(context).viewInsets,
                 child: Container(
-                    padding:
-                    const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-                    height: height ?? MediaQuery.of(context).size.height * 2 / 5,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24, horizontal: 20),
+                    height:
+                        height ?? MediaQuery.of(context).size.height * 2 / 5,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                             topLeft: Radius.circular(20))),
-                    child: BottomSheetContent()
-                )
-            );
-          }
-      );
+                    child: BottomSheetContent()));
+          });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -142,7 +140,10 @@ class BottomSheetContent extends HookConsumerWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {},
-              child: const Icon(Icons.menu, size: 28,),
+              child: const Icon(
+                Icons.menu,
+                size: 28,
+              ),
             ),
             const SizedBox(width: 16),
             GestureDetector(
