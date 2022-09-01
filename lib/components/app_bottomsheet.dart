@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/app_color.dart';
+import 'app_calendar.dart';
 import 'app_divider.dart';
 import 'app_text.dart';
 import 'app_textbutton.dart';
@@ -145,7 +146,7 @@ class BottomSheetContent extends HookConsumerWidget {
             ),
             const SizedBox(width: 16),
             GestureDetector(
-              onTap: () {},
+              onTap: () => AppCalendar.show(context),
               child: const Icon(Icons.edit_calendar_rounded, size: 28),
             ),
             const SizedBox(width: 16),

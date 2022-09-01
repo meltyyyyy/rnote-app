@@ -20,10 +20,12 @@ class AppCalendar {
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                             topLeft: Radius.circular(20))),
+                    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 2 / 3),
                     child: TableCalendar<Widget>(
                       lastDay: DateTime.utc(2030, 1, 1),
                       firstDay: DateTime.utc(2022, 1, 1),
                       focusedDay: DateTime.now(),
+                      rowHeight: 40,
                       calendarFormat: CalendarFormat.month,
                       // selectedDayPredicate: (DateTime day) {
                       //   // return isSameDay(a, b);
@@ -36,6 +38,11 @@ class AppCalendar {
                         //   });
                         // }
                       },
+                      headerVisible: true,
+                      headerStyle: const HeaderStyle(
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                      ),
                     )
                 )
             );
