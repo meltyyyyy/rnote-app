@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../models/item.dart';
 
-class StarredItems extends HookConsumerWidget {
-  const StarredItems({Key? key}) : super(key: key);
+class StarredItemsTab extends HookConsumerWidget {
+  const StarredItemsTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

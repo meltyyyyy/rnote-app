@@ -4,19 +4,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/app_bottomsheet.dart';
 import '../constants/app_color.dart';
-import 'tab/starred_items.dart';
+import 'tabs/new_list_tab.dart';
+import 'tabs/starred_items_tab.dart';
 
 class Home extends HookConsumerWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TabController _tabCtl = useTabController(initialLength: 3);
-
+    final TabController _tabCtl = useTabController(initialLength: 2);
     final List<Tab> _tabs = <Tab>[
       Tab(icon: Icon(Icons.star)),
       Tab(text: '買い出しリスト'),
-      Tab(text: '+New list')
     ];
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +43,7 @@ class Home extends HookConsumerWidget {
             .asMap()
             .map((int index, _) {
               if (index == 0) {
-                return MapEntry<int, Widget>(index, const StarredItems());
+                return MapEntry<int, Widget>(index, const StarredItemsTab());
               }
               return MapEntry<int, Widget>(index, const SizedBox());
             })

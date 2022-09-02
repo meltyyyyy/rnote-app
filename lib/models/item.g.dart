@@ -9,22 +9,25 @@ part of 'item.dart';
 _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
-      itemListId: json['itemListId'] as String? ?? '',
+      itemListId: json['item_list_id'] as String? ?? '',
       quantity: json['quantity'] as int?,
       memo: json['memo'] as String?,
-      date:
-          json['date'] == null ? null : DateTime.parse(json['date'] as String),
-      hasBought: json['hasBought'] as bool? ?? false,
-      isStarred: json['isStarred'] as bool? ?? false,
+      date: json['date'] as String?,
+      hasBought: json['has_bought'] as bool? ?? false,
+      isStarred: json['is_starred'] as bool? ?? false,
+      createdAt: json['created_at'] as String? ?? '',
+      updatedAt: json['updated_at'] as String?,
     );
 
 Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'itemListId': instance.itemListId,
+      'item_list_id': instance.itemListId,
       'quantity': instance.quantity,
       'memo': instance.memo,
-      'date': instance.date?.toIso8601String(),
-      'hasBought': instance.hasBought,
-      'isStarred': instance.isStarred,
+      'date': instance.date,
+      'has_bought': instance.hasBought,
+      'is_starred': instance.isStarred,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
     };

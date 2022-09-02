@@ -25,9 +25,11 @@ mixin _$Item {
   String get itemListId => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
   String? get memo => throw _privateConstructorUsedError;
-  DateTime? get date => throw _privateConstructorUsedError;
+  String? get date => throw _privateConstructorUsedError;
   bool get hasBought => throw _privateConstructorUsedError;
   bool get isStarred => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
+  String? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,9 +46,11 @@ abstract class $ItemCopyWith<$Res> {
       String itemListId,
       int? quantity,
       String? memo,
-      DateTime? date,
+      String? date,
       bool hasBought,
-      bool isStarred});
+      bool isStarred,
+      String createdAt,
+      String? updatedAt});
 }
 
 /// @nodoc
@@ -67,6 +71,8 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? date = freezed,
     Object? hasBought = freezed,
     Object? isStarred = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -92,7 +98,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       hasBought: hasBought == freezed
           ? _value.hasBought
           : hasBought // ignore: cast_nullable_to_non_nullable
@@ -101,6 +107,14 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
           ? _value.isStarred
           : isStarred // ignore: cast_nullable_to_non_nullable
               as bool,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -116,9 +130,11 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String itemListId,
       int? quantity,
       String? memo,
-      DateTime? date,
+      String? date,
       bool hasBought,
-      bool isStarred});
+      bool isStarred,
+      String createdAt,
+      String? updatedAt});
 }
 
 /// @nodoc
@@ -140,6 +156,8 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? date = freezed,
     Object? hasBought = freezed,
     Object? isStarred = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$_Item(
       id: id == freezed
@@ -165,7 +183,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       hasBought: hasBought == freezed
           ? _value.hasBought
           : hasBought // ignore: cast_nullable_to_non_nullable
@@ -174,12 +192,21 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
           ? _value.isStarred
           : isStarred // ignore: cast_nullable_to_non_nullable
               as bool,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Item implements _Item {
   const _$_Item(
       {this.id = '',
@@ -189,7 +216,9 @@ class _$_Item implements _Item {
       this.memo,
       this.date,
       this.hasBought = false,
-      this.isStarred = false});
+      this.isStarred = false,
+      this.createdAt = '',
+      this.updatedAt});
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -207,17 +236,22 @@ class _$_Item implements _Item {
   @override
   final String? memo;
   @override
-  final DateTime? date;
+  final String? date;
   @override
   @JsonKey()
   final bool hasBought;
   @override
   @JsonKey()
   final bool isStarred;
+  @override
+  @JsonKey()
+  final String createdAt;
+  @override
+  final String? updatedAt;
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, itemListId: $itemListId, quantity: $quantity, memo: $memo, date: $date, hasBought: $hasBought, isStarred: $isStarred)';
+    return 'Item(id: $id, name: $name, itemListId: $itemListId, quantity: $quantity, memo: $memo, date: $date, hasBought: $hasBought, isStarred: $isStarred, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -233,7 +267,9 @@ class _$_Item implements _Item {
             const DeepCollectionEquality().equals(other.memo, memo) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.hasBought, hasBought) &&
-            const DeepCollectionEquality().equals(other.isStarred, isStarred));
+            const DeepCollectionEquality().equals(other.isStarred, isStarred) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -247,7 +283,9 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(memo),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(hasBought),
-      const DeepCollectionEquality().hash(isStarred));
+      const DeepCollectionEquality().hash(isStarred),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -269,9 +307,11 @@ abstract class _Item implements Item {
       final String itemListId,
       final int? quantity,
       final String? memo,
-      final DateTime? date,
+      final String? date,
       final bool hasBought,
-      final bool isStarred}) = _$_Item;
+      final bool isStarred,
+      final String createdAt,
+      final String? updatedAt}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -286,11 +326,15 @@ abstract class _Item implements Item {
   @override
   String? get memo;
   @override
-  DateTime? get date;
+  String? get date;
   @override
   bool get hasBought;
   @override
   bool get isStarred;
+  @override
+  String get createdAt;
+  @override
+  String? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$_ItemCopyWith<_$_Item> get copyWith => throw _privateConstructorUsedError;

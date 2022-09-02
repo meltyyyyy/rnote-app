@@ -23,6 +23,7 @@ mixin _$ItemList {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   List<Item> get items => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ mixin _$ItemList {
 abstract class $ItemListCopyWith<$Res> {
   factory $ItemListCopyWith(ItemList value, $Res Function(ItemList) then) =
       _$ItemListCopyWithImpl<$Res>;
-  $Res call({String id, String title, List<Item> items});
+  $Res call({String id, String title, List<Item> items, String createdAt});
 }
 
 /// @nodoc
@@ -50,6 +51,7 @@ class _$ItemListCopyWithImpl<$Res> implements $ItemListCopyWith<$Res> {
     Object? id = freezed,
     Object? title = freezed,
     Object? items = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -64,6 +66,10 @@ class _$ItemListCopyWithImpl<$Res> implements $ItemListCopyWith<$Res> {
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Item>,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -74,7 +80,7 @@ abstract class _$$_ItemListCopyWith<$Res> implements $ItemListCopyWith<$Res> {
           _$_ItemList value, $Res Function(_$_ItemList) then) =
       __$$_ItemListCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String title, List<Item> items});
+  $Res call({String id, String title, List<Item> items, String createdAt});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_ItemListCopyWithImpl<$Res> extends _$ItemListCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? items = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_$_ItemList(
       id: id == freezed
@@ -106,15 +113,23 @@ class __$$_ItemListCopyWithImpl<$Res> extends _$ItemListCopyWithImpl<$Res>
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Item>,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$_ItemList implements _ItemList {
   const _$_ItemList(
-      {this.id = '', this.title = '', final List<Item> items = const <Item>[]})
+      {this.id = '',
+      this.title = '',
+      final List<Item> items = const <Item>[],
+      this.createdAt = ''})
       : _items = items;
 
   factory _$_ItemList.fromJson(Map<String, dynamic> json) =>
@@ -135,8 +150,12 @@ class _$_ItemList implements _ItemList {
   }
 
   @override
+  @JsonKey()
+  final String createdAt;
+
+  @override
   String toString() {
-    return 'ItemList(id: $id, title: $title, items: $items)';
+    return 'ItemList(id: $id, title: $title, items: $items, createdAt: $createdAt)';
   }
 
   @override
@@ -146,7 +165,8 @@ class _$_ItemList implements _ItemList {
             other is _$_ItemList &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
   @JsonKey(ignore: true)
@@ -155,7 +175,8 @@ class _$_ItemList implements _ItemList {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(_items));
+      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
@@ -174,7 +195,8 @@ abstract class _ItemList implements ItemList {
   const factory _ItemList(
       {final String id,
       final String title,
-      final List<Item> items}) = _$_ItemList;
+      final List<Item> items,
+      final String createdAt}) = _$_ItemList;
 
   factory _ItemList.fromJson(Map<String, dynamic> json) = _$_ItemList.fromJson;
 
@@ -184,6 +206,8 @@ abstract class _ItemList implements ItemList {
   String get title;
   @override
   List<Item> get items;
+  @override
+  String get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_ItemListCopyWith<_$_ItemList> get copyWith =>
