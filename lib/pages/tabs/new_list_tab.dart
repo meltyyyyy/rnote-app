@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../controllers/item/itemlists_controller.dart';
-import '../../providers/item/itemlist_list_provider.dart';
+import '../../providers/item/itemlists_provider.dart';
 
 class NewListTab extends HookConsumerWidget {
   const NewListTab({Key? key}) : super(key: key);

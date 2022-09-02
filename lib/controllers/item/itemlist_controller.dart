@@ -7,7 +7,7 @@ import '../../providers/firebase/firestore_provider.dart';
 import '../firebase/firestore_controller.dart';
 
 class ItemListController extends StateNotifier<ItemList> {
-  ItemListController(this._ref) : super(const ItemList());
+  ItemListController(super.state, this._ref);
 
   final Ref _ref;
 
