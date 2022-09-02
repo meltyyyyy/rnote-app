@@ -29,7 +29,7 @@ class ItemListController extends StateNotifier<ItemList> {
     addItem(item);
   }
 
-  void addItem(Item item){
+  void addItem(Item item) {
     state = state.copyWith(items: <Item>[item, ...state.items]);
   }
 }

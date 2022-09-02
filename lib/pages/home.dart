@@ -26,7 +26,8 @@ class Home extends HookConsumerWidget {
         ),
         leading: IconButton(
           icon: const Icon(Icons.add),
-          onPressed: () {  },
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute<void>(builder: (_) => NewListTab())),
           color: Colors.blueAccent,
         ),
         centerTitle: true,
