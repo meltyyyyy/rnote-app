@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../components/tabs/app_list_tile.dart';
+import '../../components/tabs/shimmer_list_tile.dart';
 import '../../models/item.dart';
 
 class StarredItemsTab extends HookConsumerWidget {
@@ -23,7 +24,7 @@ class StarredItemsTab extends HookConsumerWidget {
         child: ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              return AppListTile(items[index]);
+              return const ShimmerListTile();
             }),
         onRefresh: () => Future<void>.delayed(const Duration(seconds: 1)));
   }

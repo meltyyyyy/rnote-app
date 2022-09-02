@@ -10,8 +10,8 @@ class ShimmerListTile extends StatelessWidget {
     return CheckboxListTile(
       value: false,
       onChanged: (bool? value) {},
-      title: _buildRectangularShimmer(16, 120),
-      subtitle: _buildRectangularShimmer(12, 80),
+      title: _buildRectangularShimmer(16),
+      subtitle: _buildRectangularShimmer(12),
       secondary: const Icon(
         Icons.star_outline,
         color: Colors.blueAccent,
@@ -21,14 +21,14 @@ class ShimmerListTile extends StatelessWidget {
     );
   }
 
-  Widget _buildRectangularShimmer(double height, double width) {
+  Widget _buildRectangularShimmer(double height) {
     return Shimmer.fromColors(
       period: const Duration(milliseconds: 750),
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[200]!,
       child: Container(
         height: height,
-        width: width,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.grey[300],
           borderRadius: const BorderRadius.all(Radius.circular(6)),
