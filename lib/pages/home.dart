@@ -3,8 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/app_bottomsheet.dart';
-import '../components/app_textbutton.dart';
 import '../constants/app_color.dart';
+import '../controllers/item/itemlists_controller.dart';
+import '../models/item_list.dart';
+import '../models/item_lists.dart';
+import '../providers/item/itemlist_list_provider.dart';
 import 'tabs/new_list_tab.dart';
 import 'tabs/starred_items_tab.dart';
 
@@ -13,11 +16,29 @@ class Home extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TabController _tabCtl = useTabController(initialLength: 2);
+    final ItemListsController itemListsCtl =
+        ref.watch(itemListsProvider.notifier);
+    final ItemLists itemLists = ref.watch(itemListsProvider);
+
+    if (itemLists.loading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    final TabController _tabCtl =
+        useTabController(initialLength: 2 + itemLists.itemLists.length);
     final List<Tab> _tabs = <Tab>[
-      Tab(icon: Icon(Icons.star)),
-      Tab(text: '買い出しリスト'),
+      const Tab(icon: Icon(Icons.star)),
+      const Tab(text: '買い出しリスト'),
     ];
+
+    for (ItemList itemList in itemLists.itemLists) {
+      _tabs.add(Tab(text: itemList.title));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(

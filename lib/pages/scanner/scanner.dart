@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../components/scanner/image_viewer.dart';
 import '../../controllers/scanner/image_controller.dart';
-import '../../providers/note/image_provider.dart';
+import '../../providers/scanner/image_provider.dart';
 
 class Scanner extends HookConsumerWidget {
   const Scanner({Key? key}) : super(key: key);

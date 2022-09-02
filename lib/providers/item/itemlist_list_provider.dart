@@ -1,9 +1,8 @@
 // ignore_for_file: type=lint
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../controllers/item/itemlist_list_controller.dart';
-import '../../models/item_list.dart';
+import '../../controllers/item/itemlists_controller.dart';
+import '../../models/item_lists.dart';
 
-final itemListListProvider =
-    StateNotifierProvider<ItemListListController, List<ItemList>>(
-        (ref) => ItemListListController(ref));
+final itemListsProvider = StateNotifierProvider<ItemListsController, ItemLists>(
+    (ref) => ItemListsController(ref));

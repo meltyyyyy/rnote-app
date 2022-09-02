@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../constants/app_color.dart';
 
 import '../../controllers/scanner/selected_item_controller.dart';
-import '../../providers/note/selected_item_provider.dart';
+import '../../providers/scanner/selected_item_provider.dart';
 
 class AnnotatedBox extends HookConsumerWidget {
   const AnnotatedBox(

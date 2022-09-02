@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../components/tabs/app_list_tile.dart';
 import '../../models/item.dart';
 
 class StarredItemsTab extends HookConsumerWidget {
@@ -13,6 +14,7 @@ class StarredItemsTab extends HookConsumerWidget {
       items.add(Item(
         id: '$i',
         name: 'アイテム$i',
+        memo: 'メモメモ',
         isStarred: true,
       ));
     }
@@ -21,11 +23,7 @@ class StarredItemsTab extends HookConsumerWidget {
         child: ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              return CheckboxListTile(
-                value: items[index].hasBought,
-                onChanged: (bool? value) {},
-                title: Text(items[index].name),
-              );
+              return AppListTile(items[index]);
             }),
         onRefresh: () => Future<void>.delayed(const Duration(seconds: 1)));
   }

@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../models/item.dart';
 import '../../models/item_list.dart';
+import '../../models/item_lists.dart';
 import '../../models/user.dart';
 import '../../providers/firebase/auth_provider.dart';
 
@@ -49,7 +50,7 @@ class FirestoreController {
       assert(itemListJson.containsKey('items'),
           'Firestore item_list does not contain key "items"');
       final List<String> itemIds = itemListJson.containsKey('items')
-          ? itemListJson['items'] as List<String>
+          ? itemListJson['items'].cast<String>() as List<String>
           : <String>[];
 
       // For each itemIds, fetch actual item.
@@ -120,7 +121,7 @@ class FirestoreController {
 
     // overwrite items property : List<Item> -> List<String>
     itemListJson['items'] = itemIds;
-    _store.collection('itemList').doc(itemList.id).set(itemListJson);
+    _store.collection('item_list').doc(itemList.id).set(itemListJson);
   }
 
   void setItem(Item item) {
