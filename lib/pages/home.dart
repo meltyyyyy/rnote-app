@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/app_bottomsheet.dart';
+import '../components/app_textbutton.dart';
 import '../constants/app_color.dart';
 import 'tabs/new_list_tab.dart';
 import 'tabs/starred_items_tab.dart';
@@ -22,6 +23,11 @@ class Home extends HookConsumerWidget {
         title: const Text(
           'Rnote',
           style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () {  },
+          color: Colors.blueAccent,
         ),
         centerTitle: true,
         elevation: 1,
