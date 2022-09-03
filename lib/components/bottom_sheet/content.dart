@@ -7,6 +7,7 @@ import '../../controllers/item/itemlist_controller.dart';
 import '../../models/item_list.dart';
 import '../../providers/item/itemlist_provider.dart';
 import '../app_calendar.dart';
+import 'date_bubble.dart';
 
 class BottomSheetContent extends HookConsumerWidget {
   const BottomSheetContent({Key? key}) : super(key: key);
@@ -50,34 +51,20 @@ class BottomSheetContent extends HookConsumerWidget {
             ),
           ),
         ],
-        if (_date.value != null) ...<Widget>[
-          Container(
-              margin: const EdgeInsets.only(bottom: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black26),
-                borderRadius: const BorderRadius.all(Radius.circular(24)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    DateFormat('EEE, MMM dd').format(_date.value!),
-                    style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {},
-                    child: const Icon(Icons.close, size: 18, color: Colors.black54,),
-                  )
-                ],
-              )
-          )
-        ],
+        Container(
+          margin: const EdgeInsets.only(bottom: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              if (_date.value != null) ...<Widget>[
+                DateBubble(
+                  date: _date.value!,
+                  onTap: () => _date.value = null,
+                )
+              ],
+            ],
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
