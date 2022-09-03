@@ -5,8 +5,8 @@ import '../../components/tabs/app_list_tile.dart';
 import '../../components/tabs/shimmer_list_tile.dart';
 import '../../models/item_list.dart';
 import '../../models/item_lists.dart';
-import '../../providers/item/itemlist_list_provider.dart';
 import '../../providers/item/itemlist_provider.dart';
+import '../../providers/item/itemlists_provider.dart';
 
 class StarredItemsTab extends HookConsumerWidget {
   const StarredItemsTab({Key? key}) : super(key: key);
