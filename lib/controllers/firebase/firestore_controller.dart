@@ -6,12 +6,17 @@ import '../../models/item_list.dart';
 import '../../models/item_lists.dart';
 import '../../models/user.dart';
 import '../../providers/firebase/auth_provider.dart';
+import '../../providers/item/itemlists_provider.dart';
 
 class FirestoreController {
   FirestoreController(this._ref) : super();
 
   final Ref _ref;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
+
+  static const String userPath = 'user';
+  static const String itemListPath = 'item_list';
+  static const String itemsPath = 'items';
 
   Future<User> fetchCurrentUser() async {
     final String uid = _ref.read(authProvider.notifier).userId;
@@ -22,7 +27,7 @@ class FirestoreController {
     }
 
     final DocumentSnapshot<Map<String, dynamic>> userDoc =
-        await _store.collection('user').doc(uid).get();
+        await _store.collection(userPath).doc(uid).get();
     assert(userDoc.data() != null, 'Firestore user/$uid is missing');
     final Map<String, dynamic> userJson =
         userDoc.data() ?? const User().toJson();
@@ -31,14 +36,14 @@ class FirestoreController {
 
   void setUser(User user) {
     final Map<String, dynamic> userJson = user.toJson();
-    _store.collection('user').doc(user.id).set(userJson);
+    _store.collection(userPath).doc(user.id).set(userJson);
   }
 
   Future<List<ItemList>> fetchItemLists() async {
     final List<ItemList> itemLists = <ItemList>[];
 
     final QuerySnapshot<Map<String, dynamic>> itemListDoc =
-        await _store.collection('item_list').get();
+        await _store.collection(itemListPath).get();
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshots =
         itemListDoc.docs;
 
@@ -57,7 +62,7 @@ class FirestoreController {
       final List<Item> items = <Item>[];
       for (String id in itemIds) {
         final DocumentSnapshot<Map<String, dynamic>> itemDoc =
-            await _store.collection('items').doc(id).get();
+            await _store.collection(itemsPath).doc(id).get();
         final Map<String, dynamic> itemJson =
             itemDoc.data() ?? const Item().toJson();
         items.add(Item.fromJson(itemJson));
@@ -72,7 +77,7 @@ class FirestoreController {
 
   Future<ItemList> fetchItemListById(String id) async {
     final DocumentSnapshot<Map<String, dynamic>> itemListDoc =
-        await _store.collection('item_list').doc(id).get();
+        await _store.collection(itemListPath).doc(id).get();
 
     // Firestore does not accept json array.
     // Save List<String> itemIds instead.
@@ -87,7 +92,7 @@ class FirestoreController {
     final List<Item> items = <Item>[];
     for (String id in itemIds) {
       final DocumentSnapshot<Map<String, dynamic>> itemDoc =
-          await _store.collection('items').doc(id).get();
+          await _store.collection(itemsPath).doc(id).get();
       final Map<String, dynamic> itemJson =
           itemDoc.data() ?? const Item().toJson();
       items.add(Item.fromJson(itemJson));
@@ -121,7 +126,7 @@ class FirestoreController {
 
     // overwrite items property : List<Item> -> List<String>
     itemListJson['items'] = itemIds;
-    _store.collection('item_list').doc(itemList.id).set(itemListJson);
+    _store.collection(itemListPath).doc(itemList.id).set(itemListJson);
   }
 
   void setItem(Item item) {
@@ -130,7 +135,33 @@ class FirestoreController {
     }
     item = item.copyWith(updatedAt: DateTime.now().toString());
 
+    // Set Item item to items
     final Map<String, dynamic> itemJson = item.toJson();
-    _store.collection('items').doc(item.id).set(itemJson);
+    _store.collection(itemsPath).doc(item.id).set(itemJson);
+
+    // Update corresponding item_list/id/items
+    // items are List<String> itemIds
+    final ItemLists itemLists = _ref.read(itemListsProvider);
+    final ItemList itemList = itemLists.itemLists
+        .firstWhere((ItemList itemList) => itemList.id == item.itemListId);
+    final Map<String, dynamic> itemListJson = itemList.toJson();
+
+    // Firestore does not accept json array.
+    // Save List<String> itemIds instead.
+    assert(itemListJson.containsKey('items'),
+        'ItemList does not contain key "items"');
+    final List<Map<String, dynamic>> itemsJson = itemListJson['items']
+        .cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+    final List<String> itemIds = <String>[];
+    for (Map<String, dynamic> itemJson in itemsJson) {
+      assert(itemJson.containsKey('id'), '$itemsJson does not contain id');
+      final String id =
+          itemJson.containsKey('id') ? itemJson['id'] as String : '';
+      itemIds.add(id);
+    }
+    // overwrite items property : List<Item> -> List<String>
+    itemListJson['items'] = itemIds;
+
+    _store.collection(itemListPath).doc(itemList.id).set(itemListJson);
   }
 }

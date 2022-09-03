@@ -4,7 +4,9 @@ import 'package:uuid/uuid.dart';
 import '../../models/item.dart';
 import '../../models/item_list.dart';
 import '../../providers/firebase/firestore_provider.dart';
+import '../../providers/item/itemlists_provider.dart';
 import '../firebase/firestore_controller.dart';
+import 'itemlists_controller.dart';
 
 class ItemListController extends StateNotifier<ItemList> {
   ItemListController(super.state, this._ref);
@@ -30,6 +32,8 @@ class ItemListController extends StateNotifier<ItemList> {
   }
 
   void addItem(Item item) {
+    final ItemListsController itemListsCtl = _ref.read(itemListsProvider.notifier);
     state = state.copyWith(items: <Item>[item, ...state.items]);
+    itemListsCtl.addNewItem(item);
   }
 }

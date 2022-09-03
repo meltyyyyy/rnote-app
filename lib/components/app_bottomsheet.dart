@@ -3,6 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../constants/app_color.dart';
+import '../controllers/item/itemlist_controller.dart';
+import '../models/item_list.dart';
+import '../providers/item/itemlist_provider.dart';
 import 'app_calendar.dart';
 import 'app_divider.dart';
 import 'app_text.dart';
@@ -31,7 +34,7 @@ class AppBottomSheet extends HookConsumerWidget {
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                             topLeft: Radius.circular(20))),
-                    child: BottomSheetContent()));
+                    child: const BottomSheetContent()));
           });
 
   @override
@@ -65,9 +68,14 @@ class BottomSheetContent extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController _itemCtl = useTextEditingController(text: '');
+    final ItemList currentTabItemList = ref.watch(currentTabItemListProvider);
+    final ItemListController itemListCtl =
+        ref.watch(itemListProvider(currentTabItemList).notifier);
+
+    final TextEditingController _nameCtl = useTextEditingController(text: '');
     final TextEditingController _numCtl = useTextEditingController(text: '');
     final TextEditingController _memoCtl = useTextEditingController(text: '');
+    final ValueNotifier<bool> isStarred = useState<bool>(false);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -83,7 +91,15 @@ class BottomSheetContent extends HookConsumerWidget {
             AppTextButton(
               text: '保存',
               textColor: AppColor.normalButton,
-              onTap: () {},
+              onTap: () {
+                itemListCtl.createNewItem(
+                    _nameCtl.text,
+                    currentTabItemList.id,
+                    memo: _memoCtl.text,
+                    quantity: int.tryParse(_numCtl.text),
+                    isStarred: isStarred.value);
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
@@ -103,7 +119,7 @@ class BottomSheetContent extends HookConsumerWidget {
           children: <Widget>[
             Flexible(
               child: TextField(
-                controller: _itemCtl,
+                controller: _nameCtl,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   hintText: '買うもの',
@@ -140,20 +156,19 @@ class BottomSheetContent extends HookConsumerWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {},
-              child: const Icon(
-                Icons.menu,
-                size: 28,
-              ),
+              child: const Icon(Icons.menu, size: 28, color: Colors.blueAccent),
             ),
             const SizedBox(width: 16),
             GestureDetector(
               onTap: () => AppCalendar.show(context),
-              child: const Icon(Icons.edit_calendar_rounded, size: 28),
+              child: const Icon(Icons.edit_calendar_rounded,
+                  size: 28, color: Colors.blueAccent),
             ),
             const SizedBox(width: 16),
             GestureDetector(
-              onTap: () {},
-              child: const Icon(Icons.star, size: 28),
+              onTap: () => isStarred.value = !isStarred.value,
+              child: Icon(isStarred.value ? Icons.star : Icons.star_outline,
+                  size: 28, color: Colors.blueAccent),
             ),
           ],
         )

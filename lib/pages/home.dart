@@ -58,11 +58,12 @@ class Home extends HookConsumerWidget {
                 unselectedLabelColor: Colors.black54,
                 isScrollable: true,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                onTap: (int index) => ref.read(currentTabItemListProvider.notifier).update((_) {
-                  if(index == TabIndex.starred){
+                onTap: (int index) =>
+                    ref.read(currentTabItemListProvider.notifier).update((_) {
+                  if (index == TabIndex.starred) {
                     return starredItems;
                   }
-                  if(index == TabIndex.shopping){
+                  if (index == TabIndex.shopping) {
                     return shoppingList;
                   }
                   return itemLists.itemLists[index - 2];

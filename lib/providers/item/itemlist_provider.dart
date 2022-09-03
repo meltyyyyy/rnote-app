@@ -28,4 +28,5 @@ final starredItemListProvider =
   return ItemListController(starredItems.copyWith(items: items), ref);
 });
 
-final currentTabItemListProvider = StateProvider<ItemList>((ref) => shoppingList);
+final currentTabItemListProvider =
+    StateProvider<ItemList>((ref) => shoppingList);
