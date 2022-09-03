@@ -1,10 +1,9 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateBubble extends StatelessWidget {
-  const DateBubble({Key? key, required this.date, required this.onTap }) : super(key: key);
+  const DateBubble({Key? key, required this.date, required this.onTap})
+      : super(key: key);
 
   final DateTime date;
   final VoidCallback onTap;
@@ -31,10 +30,13 @@ class DateBubble extends StatelessWidget {
             const SizedBox(width: 8),
             GestureDetector(
               onTap: onTap,
-              child: const Icon(Icons.close, size: 18, color: Colors.black54,),
+              child: const Icon(
+                Icons.close,
+                size: 18,
+                color: Colors.black54,
+              ),
             )
           ],
-        )
-    );
+        ));
   }
 }

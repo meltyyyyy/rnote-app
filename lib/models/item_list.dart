@@ -11,6 +11,7 @@ class ItemList with _$ItemList {
   const factory ItemList(
       {@Default('') String id,
       @Default('') String title,
+      @Default('') String userId,
       @Default(<Item>[]) List<Item> items,
       @Default('') String createdAt}) = _ItemList;
 

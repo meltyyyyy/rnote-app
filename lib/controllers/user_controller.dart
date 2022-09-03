@@ -8,12 +8,12 @@ import 'firebase/firestore_controller.dart';
 
 class UserController extends StateNotifier<User> {
   UserController(this._ref) : super(const User()) {
-    _init();
+    init();
   }
 
   final Ref _ref;
 
-  Future<void> _init() async {
+  Future<void> init() async {
     final FirestoreController storeCtl = _ref.read(storeProvider);
     final User user = await storeCtl.fetchCurrentUser();
     state = user;

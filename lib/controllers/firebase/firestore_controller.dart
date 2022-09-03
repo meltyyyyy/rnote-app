@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../models/item.dart';
 import '../../models/item_list.dart';
@@ -7,6 +8,7 @@ import '../../models/item_lists.dart';
 import '../../models/user.dart';
 import '../../providers/firebase/auth_provider.dart';
 import '../../providers/item/itemlists_provider.dart';
+import '../../providers/user_ptovider.dart';
 
 class FirestoreController {
   FirestoreController(this._ref) : super();
@@ -37,6 +39,29 @@ class FirestoreController {
   void setUser(User user) {
     final Map<String, dynamic> userJson = user.toJson();
     _store.collection(userPath).doc(user.id).set(userJson);
+  }
+
+  // Check if user is first login
+  // If this is first login, then create shopping list as default
+  Future<void> initItemList() async {
+    final QuerySnapshot<Map<String, dynamic>> itemListDoc =
+    await _store.collection(itemListPath).get();
+    final User user = _ref.read(userProvider);
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshots =
+        itemListDoc.docs;
+
+    final List<String> userIds = snapshots.map((QueryDocumentSnapshot<Map<String, dynamic>> e) => e['user_id'] as String).toList();
+    if(!userIds.contains(user.id)){
+      const Uuid uuid = Uuid();
+      final ItemList itemList = ItemList(
+        id: uuid.v1(),
+        title: '買い出しリスト',
+        userId: user.id,
+        items: <Item>[],
+        createdAt: DateTime.utc(2022).toString()
+      );
+      setItemList(itemList);
+    }
   }
 
   Future<List<ItemList>> fetchItemLists() async {

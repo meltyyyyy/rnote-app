@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import '../../controllers/item/itemlist_controller.dart';
 import '../../models/item_list.dart';
@@ -16,7 +15,7 @@ class BottomSheetContent extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ItemList currentTabItemList = ref.watch(currentTabItemListProvider);
     final ItemListController itemListCtl =
-    ref.watch(itemListProvider(currentTabItemList).notifier);
+        ref.watch(itemListProvider(currentTabItemList).notifier);
 
     final TextEditingController _nameCtl = useTextEditingController(text: '');
     final TextEditingController _numCtl = useTextEditingController(text: '');
@@ -103,6 +102,7 @@ class BottomSheetContent extends HookConsumerWidget {
                       _nameCtl.text, currentTabItemList.id,
                       memo: _memoCtl.text,
                       quantity: int.tryParse(_numCtl.text),
+                      date: _date.value?.toString(),
                       isStarred: _isStarred.value);
                   Navigator.pop(context);
                 },

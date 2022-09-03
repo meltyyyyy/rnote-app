@@ -23,6 +23,7 @@ mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get itemListId => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
   String? get memo => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $ItemCopyWith<$Res> {
       {String id,
       String name,
       String itemListId,
+      String userId,
       int? quantity,
       String? memo,
       String? date,
@@ -66,6 +68,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? itemListId = freezed,
+    Object? userId = freezed,
     Object? quantity = freezed,
     Object? memo = freezed,
     Object? date = freezed,
@@ -86,6 +89,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
       itemListId: itemListId == freezed
           ? _value.itemListId
           : itemListId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       quantity: quantity == freezed
           ? _value.quantity
@@ -128,6 +135,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       {String id,
       String name,
       String itemListId,
+      String userId,
       int? quantity,
       String? memo,
       String? date,
@@ -151,6 +159,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? itemListId = freezed,
+    Object? userId = freezed,
     Object? quantity = freezed,
     Object? memo = freezed,
     Object? date = freezed,
@@ -171,6 +180,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
       itemListId: itemListId == freezed
           ? _value.itemListId
           : itemListId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       quantity: quantity == freezed
           ? _value.quantity
@@ -212,6 +225,7 @@ class _$_Item implements _Item {
       {this.id = '',
       this.name = '',
       this.itemListId = '',
+      this.userId = '',
       this.quantity,
       this.memo,
       this.date,
@@ -232,6 +246,9 @@ class _$_Item implements _Item {
   @JsonKey()
   final String itemListId;
   @override
+  @JsonKey()
+  final String userId;
+  @override
   final int? quantity;
   @override
   final String? memo;
@@ -251,7 +268,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, itemListId: $itemListId, quantity: $quantity, memo: $memo, date: $date, hasBought: $hasBought, isStarred: $isStarred, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Item(id: $id, name: $name, itemListId: $itemListId, userId: $userId, quantity: $quantity, memo: $memo, date: $date, hasBought: $hasBought, isStarred: $isStarred, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -263,6 +280,7 @@ class _$_Item implements _Item {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.itemListId, itemListId) &&
+            const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality().equals(other.quantity, quantity) &&
             const DeepCollectionEquality().equals(other.memo, memo) &&
             const DeepCollectionEquality().equals(other.date, date) &&
@@ -279,6 +297,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(itemListId),
+      const DeepCollectionEquality().hash(userId),
       const DeepCollectionEquality().hash(quantity),
       const DeepCollectionEquality().hash(memo),
       const DeepCollectionEquality().hash(date),
@@ -305,6 +324,7 @@ abstract class _Item implements Item {
       {final String id,
       final String name,
       final String itemListId,
+      final String userId,
       final int? quantity,
       final String? memo,
       final String? date,
@@ -321,6 +341,8 @@ abstract class _Item implements Item {
   String get name;
   @override
   String get itemListId;
+  @override
+  String get userId;
   @override
   int? get quantity;
   @override

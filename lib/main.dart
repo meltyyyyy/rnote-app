@@ -11,7 +11,7 @@ Future<void> main() async {
 
   await Future.wait<void>(<Future<dynamic>>[
     Firebase.initializeApp(),
-    dotenv.load(fileName: '.env')
+    dotenv.load(fileName: '.env'),
   ]);
   runApp(const ProviderScope(child: RnoteApp()));
 }

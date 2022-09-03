@@ -1,7 +1,6 @@
 // ignore_for_file: type=lint
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../constants/default_item_list.dart';
 import '../../controllers/item/itemlist_controller.dart';
 import '../../models/item.dart';
 import '../../models/item_list.dart';
@@ -15,7 +14,7 @@ final starredItemListProvider =
     StateNotifierProvider<ItemListController, ItemList>((ref) {
   final itemLists = ref.watch(itemListsProvider);
   if (itemLists.loading) {
-    return ItemListController(starredItems, ref);
+    return ItemListController(ItemList(), ref);
   }
 
   final items = <Item>[];
@@ -25,8 +24,9 @@ final starredItemListProvider =
     items.addAll(starredItems);
   }
 
-  return ItemListController(starredItems.copyWith(items: items), ref);
+  return ItemListController(ItemList(items: items), ref);
 });
 
 final currentTabItemListProvider =
-    StateProvider<ItemList>((ref) => shoppingList);
+    StateProvider<ItemList>((ref) => ItemList());
+

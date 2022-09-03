@@ -4,8 +4,6 @@ import 'package:rnote_app/pages/tabs/item_list_tab.dart';
 
 import '../components/bottom_sheet/app_bottomsheet.dart';
 import '../constants/app_color.dart';
-import '../constants/default_item_list.dart';
-import '../constants/tab_index.dart';
 import '../models/item_list.dart';
 import '../models/item_lists.dart';
 import '../providers/item/itemlist_provider.dart';
@@ -22,7 +20,6 @@ class Home extends HookConsumerWidget {
 
     final List<Tab> _tabs = <Tab>[
       const Tab(icon: Icon(Icons.star)),
-      const Tab(text: '買い出しリスト'),
     ];
 
     for (ItemList itemList in itemLists.itemLists) {
@@ -31,7 +28,7 @@ class Home extends HookConsumerWidget {
 
     return DefaultTabController(
         length: _tabs.length,
-        initialIndex: TabIndex.shopping,
+        initialIndex: 0, // starred items
         child: Builder(
           builder: (BuildContext context) => Scaffold(
             appBar: AppBar(
@@ -60,13 +57,10 @@ class Home extends HookConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 onTap: (int index) =>
                     ref.read(currentTabItemListProvider.notifier).update((_) {
-                  if (index == TabIndex.starred) {
-                    return starredItems;
+                  if (index == 0) {
+                    return const ItemList();
                   }
-                  if (index == TabIndex.shopping) {
-                    return shoppingList;
-                  }
-                  return itemLists.itemLists[index - 2];
+                  return itemLists.itemLists[index - 1];
                 }),
               ),
             ),
@@ -75,18 +69,13 @@ class Home extends HookConsumerWidget {
                   .asMap()
                   .map((int index, _) {
                     // starred tab
-                    if (index == TabIndex.starred) {
+                    if (index == 0) {
                       return MapEntry<int, Widget>(
                           index, const StarredItemsTab());
                     }
-                    // shopping list tab
-                    if (index == TabIndex.shopping) {
-                      return MapEntry<int, Widget>(
-                          index, ItemListTab(shoppingList));
-                    }
                     // others
                     return MapEntry<int, Widget>(
-                        index, ItemListTab(itemLists.itemLists[index - 2]));
+                        index, ItemListTab(itemLists.itemLists[index - 1]));
                   })
                   .values
                   .toList(),

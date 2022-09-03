@@ -22,6 +22,7 @@ ItemList _$ItemListFromJson(Map<String, dynamic> json) {
 mixin _$ItemList {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   List<Item> get items => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
 
@@ -35,7 +36,12 @@ mixin _$ItemList {
 abstract class $ItemListCopyWith<$Res> {
   factory $ItemListCopyWith(ItemList value, $Res Function(ItemList) then) =
       _$ItemListCopyWithImpl<$Res>;
-  $Res call({String id, String title, List<Item> items, String createdAt});
+  $Res call(
+      {String id,
+      String title,
+      String userId,
+      List<Item> items,
+      String createdAt});
 }
 
 /// @nodoc
@@ -50,6 +56,7 @@ class _$ItemListCopyWithImpl<$Res> implements $ItemListCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? title = freezed,
+    Object? userId = freezed,
     Object? items = freezed,
     Object? createdAt = freezed,
   }) {
@@ -61,6 +68,10 @@ class _$ItemListCopyWithImpl<$Res> implements $ItemListCopyWith<$Res> {
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       items: items == freezed
           ? _value.items
@@ -80,7 +91,12 @@ abstract class _$$_ItemListCopyWith<$Res> implements $ItemListCopyWith<$Res> {
           _$_ItemList value, $Res Function(_$_ItemList) then) =
       __$$_ItemListCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String title, List<Item> items, String createdAt});
+  $Res call(
+      {String id,
+      String title,
+      String userId,
+      List<Item> items,
+      String createdAt});
 }
 
 /// @nodoc
@@ -97,6 +113,7 @@ class __$$_ItemListCopyWithImpl<$Res> extends _$ItemListCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? title = freezed,
+    Object? userId = freezed,
     Object? items = freezed,
     Object? createdAt = freezed,
   }) {
@@ -108,6 +125,10 @@ class __$$_ItemListCopyWithImpl<$Res> extends _$ItemListCopyWithImpl<$Res>
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       items: items == freezed
           ? _value._items
@@ -128,6 +149,7 @@ class _$_ItemList implements _ItemList {
   const _$_ItemList(
       {this.id = '',
       this.title = '',
+      this.userId = '',
       final List<Item> items = const <Item>[],
       this.createdAt = ''})
       : _items = items;
@@ -141,6 +163,9 @@ class _$_ItemList implements _ItemList {
   @override
   @JsonKey()
   final String title;
+  @override
+  @JsonKey()
+  final String userId;
   final List<Item> _items;
   @override
   @JsonKey()
@@ -155,7 +180,7 @@ class _$_ItemList implements _ItemList {
 
   @override
   String toString() {
-    return 'ItemList(id: $id, title: $title, items: $items, createdAt: $createdAt)';
+    return 'ItemList(id: $id, title: $title, userId: $userId, items: $items, createdAt: $createdAt)';
   }
 
   @override
@@ -165,6 +190,7 @@ class _$_ItemList implements _ItemList {
             other is _$_ItemList &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title) &&
+            const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
@@ -175,6 +201,7 @@ class _$_ItemList implements _ItemList {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(userId),
       const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(createdAt));
 
@@ -195,6 +222,7 @@ abstract class _ItemList implements ItemList {
   const factory _ItemList(
       {final String id,
       final String title,
+      final String userId,
       final List<Item> items,
       final String createdAt}) = _$_ItemList;
 
@@ -204,6 +232,8 @@ abstract class _ItemList implements ItemList {
   String get id;
   @override
   String get title;
+  @override
+  String get userId;
   @override
   List<Item> get items;
   @override

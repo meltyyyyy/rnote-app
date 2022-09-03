@@ -10,6 +10,7 @@ class Item with _$Item {
       {@Default('') String id,
       @Default('') String name,
       @Default('') String itemListId,
+      @Default('') String userId,
       int? quantity,
       String? memo,
       String? date,
