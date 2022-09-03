@@ -35,7 +35,7 @@ class ItemListsController extends StateNotifier<ItemLists> {
   void addNewItem(Item item) {
     final List<ItemList> itemLists = state.itemLists;
     final List<ItemList> newItemLists = itemLists.map((ItemList e) {
-      if(e.id == item.itemListId){
+      if (e.id == item.itemListId) {
         e = e.copyWith(items: <Item>[item, ...e.items]);
       }
       return e;

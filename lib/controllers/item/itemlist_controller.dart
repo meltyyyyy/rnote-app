@@ -32,7 +32,8 @@ class ItemListController extends StateNotifier<ItemList> {
   }
 
   void addItem(Item item) {
-    final ItemListsController itemListsCtl = _ref.read(itemListsProvider.notifier);
+    final ItemListsController itemListsCtl =
+        _ref.read(itemListsProvider.notifier);
     state = state.copyWith(items: <Item>[item, ...state.items]);
     itemListsCtl.addNewItem(item);
   }

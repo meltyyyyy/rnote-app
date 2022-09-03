@@ -75,7 +75,8 @@ class BottomSheetContent extends HookConsumerWidget {
     final TextEditingController _nameCtl = useTextEditingController(text: '');
     final TextEditingController _numCtl = useTextEditingController(text: '');
     final TextEditingController _memoCtl = useTextEditingController(text: '');
-    final ValueNotifier<bool> isStarred = useState<bool>(false);
+    final ValueNotifier<bool> _isStarred = useState<bool>(false);
+    final ValueNotifier<DateTime?> _date = useState<DateTime?>(null);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -92,12 +93,10 @@ class BottomSheetContent extends HookConsumerWidget {
               text: '保存',
               textColor: AppColor.normalButton,
               onTap: () {
-                itemListCtl.createNewItem(
-                    _nameCtl.text,
-                    currentTabItemList.id,
+                itemListCtl.createNewItem(_nameCtl.text, currentTabItemList.id,
                     memo: _memoCtl.text,
                     quantity: int.tryParse(_numCtl.text),
-                    isStarred: isStarred.value);
+                    isStarred: _isStarred.value);
                 Navigator.pop(context);
               },
             ),
@@ -160,14 +159,14 @@ class BottomSheetContent extends HookConsumerWidget {
             ),
             const SizedBox(width: 16),
             GestureDetector(
-              onTap: () => AppCalendar.show(context),
+              onTap: () => AppCalendar.show(context).then((DateTime? date) => _date.value = date),
               child: const Icon(Icons.edit_calendar_rounded,
                   size: 28, color: Colors.blueAccent),
             ),
             const SizedBox(width: 16),
             GestureDetector(
-              onTap: () => isStarred.value = !isStarred.value,
-              child: Icon(isStarred.value ? Icons.star : Icons.star_outline,
+              onTap: () => _isStarred.value = !_isStarred.value,
+              child: Icon(_isStarred.value ? Icons.star : Icons.star_outline,
                   size: 28, color: Colors.blueAccent),
             ),
           ],
