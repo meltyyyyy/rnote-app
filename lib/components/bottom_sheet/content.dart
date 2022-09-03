@@ -21,6 +21,7 @@ class BottomSheetContent extends HookConsumerWidget {
     final TextEditingController _numCtl = useTextEditingController(text: '');
     final TextEditingController _memoCtl = useTextEditingController(text: '');
     final ValueNotifier<String> _name = useState<String>('');
+    final ValueNotifier<String?> _memo = useState<String?>(null);
     final ValueNotifier<bool> _isStarred = useState<bool>(false);
     final ValueNotifier<bool> _addMemo = useState<bool>(false);
     final ValueNotifier<DateTime?> _date = useState<DateTime?>(null);
@@ -41,6 +42,7 @@ class BottomSheetContent extends HookConsumerWidget {
         if (_addMemo.value) ...<Widget>[
           TextField(
             controller: _memoCtl,
+            onChanged: (String text) => _memo.value = text,
             autofocus: false,
             style: const TextStyle(fontSize: 14, color: Colors.black54),
             decoration: const InputDecoration(
@@ -59,6 +61,7 @@ class BottomSheetContent extends HookConsumerWidget {
                 DateBubble(
                   date: _date.value!,
                   onTap: () => _date.value = null,
+                  isRemovable: true,
                 )
               ],
             ],
@@ -100,7 +103,7 @@ class BottomSheetContent extends HookConsumerWidget {
                   }
                   itemListCtl.createNewItem(
                       _nameCtl.text, currentTabItemList.id,
-                      memo: _memoCtl.text,
+                      memo: _memo.value,
                       quantity: int.tryParse(_numCtl.text),
                       date: _date.value?.toString(),
                       isStarred: _isStarred.value);

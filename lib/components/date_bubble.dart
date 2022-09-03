@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateBubble extends StatelessWidget {
-  const DateBubble({Key? key, required this.date, required this.onTap})
+  const DateBubble({Key? key, required this.date, this.onTap, this.isRemovable = false})
       : super(key: key);
 
   final DateTime date;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final bool isRemovable;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +28,17 @@ class DateBubble extends StatelessWidget {
                   color: Colors.black54,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(width: 8),
-            GestureDetector(
-              onTap: onTap,
-              child: const Icon(
-                Icons.close,
-                size: 18,
-                color: Colors.black54,
-              ),
-            )
+            if(isRemovable) ...<Widget>[
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: onTap,
+                child: const Icon(
+                  Icons.close,
+                  size: 18,
+                  color: Colors.black54,
+                ),
+              )
+            ]
           ],
         ));
   }
