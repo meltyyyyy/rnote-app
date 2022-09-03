@@ -4,4 +4,4 @@
 
 後ほどREADMEを充実させる
 
-![image](https://user-images.githubusercontent.com/81362789/188275785-3a6b8d5f-24e1-4ba5-b118-5c38c18336f7.png)
+![image](https://user-images.githubusercontent.com/81362789/188275915-c2add91a-ac1e-4733-b695-ece198ce9013.png)
