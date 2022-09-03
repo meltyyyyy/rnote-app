@@ -38,15 +38,17 @@ class AppCalendar extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             // This invisible Done makes Date align center
-            const Text('Done', style: TextStyle(fontSize: 16, color: Colors.transparent)),
-            const Text('Date', style: TextStyle(fontSize: 18),),
+            const Text('Done',
+                style: TextStyle(fontSize: 16, color: Colors.transparent)),
+            const Text(
+              'Date',
+              style: TextStyle(fontSize: 18),
+            ),
             GestureDetector(
               onTap: () => Navigator.pop(context, _date.value),
               child: const Text(
                 'Done',
-                style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: 16),
+                style: TextStyle(color: Colors.blueAccent, fontSize: 16),
               ),
             )
           ],

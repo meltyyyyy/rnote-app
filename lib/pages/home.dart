@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rnote_app/pages/tabs/item_list_tab.dart';
 
-import '../components/app_bottomsheet.dart';
+import '../components/bottom_sheet/app_bottomsheet.dart';
 import '../constants/app_color.dart';
 import '../constants/default_item_list.dart';
 import '../constants/tab_index.dart';

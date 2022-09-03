@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
+
+import '../../controllers/item/itemlist_controller.dart';
+import '../../models/item_list.dart';
+import '../../providers/item/itemlist_provider.dart';
+import '../app_calendar.dart';
+
+class BottomSheetContent extends HookConsumerWidget {
+  const BottomSheetContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ItemList currentTabItemList = ref.watch(currentTabItemListProvider);
+    final ItemListController itemListCtl =
+    ref.watch(itemListProvider(currentTabItemList).notifier);
+
+    final TextEditingController _nameCtl = useTextEditingController(text: '');
+    final TextEditingController _numCtl = useTextEditingController(text: '');
+    final TextEditingController _memoCtl = useTextEditingController(text: '');
+    final ValueNotifier<String> _name = useState<String>('');
+    final ValueNotifier<bool> _isStarred = useState<bool>(false);
+    final ValueNotifier<bool> _addMemo = useState<bool>(false);
+    final ValueNotifier<DateTime?> _date = useState<DateTime?>(null);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        TextField(
+          controller: _nameCtl,
+          onChanged: (String text) => _name.value = text,
+          autofocus: true,
+          decoration: const InputDecoration(
+            hintText: 'New item',
+            border: InputBorder.none,
+          ),
+        ),
+        if (_addMemo.value) ...<Widget>[
+          TextField(
+            controller: _memoCtl,
+            autofocus: false,
+            style: const TextStyle(fontSize: 14, color: Colors.black54),
+            decoration: const InputDecoration(
+              hintText: 'Add memo',
+              hintStyle: TextStyle(fontSize: 14),
+              border: InputBorder.none,
+            ),
+          ),
+        ],
+        if (_date.value != null) ...<Widget>[
+          Container(
+              margin: const EdgeInsets.only(bottom: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black26),
+                borderRadius: const BorderRadius.all(Radius.circular(24)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    DateFormat('EEE, MMM dd').format(_date.value!),
+                    style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const Icon(Icons.close, size: 18, color: Colors.black54,),
+                  )
+                ],
+              )
+          )
+        ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => _addMemo.value = true,
+                  child: const Icon(Icons.menu_open,
+                      size: 24, color: Colors.blueAccent),
+                ),
+                const SizedBox(width: 16),
+                GestureDetector(
+                  onTap: () => AppCalendar.show(context)
+                      .then((DateTime? date) => _date.value = date),
+                  child: const Icon(Icons.edit_calendar_rounded,
+                      size: 24, color: Colors.blueAccent),
+                ),
+                const SizedBox(width: 16),
+                GestureDetector(
+                  onTap: () => _isStarred.value = !_isStarred.value,
+                  child: Icon(
+                      _isStarred.value ? Icons.star : Icons.star_outline,
+                      size: 24,
+                      color: Colors.blueAccent),
+                ),
+              ],
+            ),
+            GestureDetector(
+                onTap: () {
+                  if (_nameCtl.text.isEmpty) {
+                    return;
+                  }
+                  itemListCtl.createNewItem(
+                      _nameCtl.text, currentTabItemList.id,
+                      memo: _memoCtl.text,
+                      quantity: int.tryParse(_numCtl.text),
+                      isStarred: _isStarred.value);
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Save',
+                  style: TextStyle(
+                      color: _name.value.isEmpty
+                          ? Colors.black54
+                          : Colors.blueAccent,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ))
+          ],
+        )
+      ],
+    );
+  }
+}
