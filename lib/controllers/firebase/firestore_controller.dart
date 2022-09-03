@@ -59,13 +59,13 @@ class FirestoreController {
           : <String>[];
 
       // For each itemIds, fetch actual item.
-      final List<Item> items = <Item>[];
+      final List<Map<String, dynamic>> items = <Map<String, dynamic>>[];
       for (String id in itemIds) {
         final DocumentSnapshot<Map<String, dynamic>> itemDoc =
             await _store.collection(itemsPath).doc(id).get();
         final Map<String, dynamic> itemJson =
             itemDoc.data() ?? const Item().toJson();
-        items.add(Item.fromJson(itemJson));
+        items.add(itemJson);
       }
 
       // overwrite items property : List<String> -> List<Item>
@@ -148,17 +148,9 @@ class FirestoreController {
 
     // Firestore does not accept json array.
     // Save List<String> itemIds instead.
-    assert(itemListJson.containsKey('items'),
-        'ItemList does not contain key "items"');
-    final List<Map<String, dynamic>> itemsJson = itemListJson['items']
-        .cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
-    final List<String> itemIds = <String>[];
-    for (Map<String, dynamic> itemJson in itemsJson) {
-      assert(itemJson.containsKey('id'), '$itemsJson does not contain id');
-      final String id =
-          itemJson.containsKey('id') ? itemJson['id'] as String : '';
-      itemIds.add(id);
-    }
+    final List<String> itemIds = itemList.items.map((Item e) => e.id).toList();
+    itemIds.add(item.id);
+
     // overwrite items property : List<Item> -> List<String>
     itemListJson['items'] = itemIds;
 
