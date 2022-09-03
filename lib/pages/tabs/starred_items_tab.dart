@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../components/tabs/app_list_tile.dart';
-import '../../components/tabs/shimmer_list_tile.dart';
+import '../../components/tabs/app_listtile.dart';
+import '../../components/tabs/shimmer_listtile.dart';
 import '../../models/item_list.dart';
 import '../../models/item_lists.dart';
 import '../../providers/item/itemlist_provider.dart';
