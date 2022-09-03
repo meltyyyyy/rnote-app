@@ -37,7 +37,8 @@ class ItemListsController extends StateNotifier<ItemLists> {
     final User user = _ref.read(userProvider);
 
     const Uuid uuid = Uuid();
-    final ItemList itemList = ItemList(id: uuid.v1(), title: title, userId: user.id);
+    final ItemList itemList =
+        ItemList(id: uuid.v1(), title: title, userId: user.id);
 
     storeCtl.setItemList(itemList);
     state = state.copyWith(itemLists: <ItemList>[...state.itemLists, itemList]);

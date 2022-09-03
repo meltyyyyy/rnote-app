@@ -45,21 +45,23 @@ class FirestoreController {
   // If this is first login, then create shopping list as default
   Future<void> initItemList() async {
     final QuerySnapshot<Map<String, dynamic>> itemListDoc =
-    await _store.collection(itemListPath).get();
+        await _store.collection(itemListPath).get();
     final User user = _ref.read(userProvider);
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshots =
         itemListDoc.docs;
 
-    final List<String> userIds = snapshots.map((QueryDocumentSnapshot<Map<String, dynamic>> e) => e['user_id'] as String).toList();
-    if(!userIds.contains(user.id)){
+    final List<String> userIds = snapshots
+        .map((QueryDocumentSnapshot<Map<String, dynamic>> e) =>
+            e['user_id'] as String)
+        .toList();
+    if (!userIds.contains(user.id)) {
       const Uuid uuid = Uuid();
       final ItemList itemList = ItemList(
-        id: uuid.v1(),
-        title: '買い出しリスト',
-        userId: user.id,
-        items: <Item>[],
-        createdAt: DateTime.utc(2022).toString()
-      );
+          id: uuid.v1(),
+          title: '買い出しリスト',
+          userId: user.id,
+          items: <Item>[],
+          createdAt: DateTime.utc(2022).toString());
       setItemList(itemList);
     }
   }
@@ -95,8 +97,15 @@ class FirestoreController {
 
       // overwrite items property : List<String> -> List<Item>
       itemListJson['items'] = items;
-      itemLists.add(ItemList.fromJson(itemListJson));
+      final ItemList itemList = ItemList.fromJson(itemListJson);
+      final List<Item> sortedItems = itemList.items.map((Item e) => e).toList();
+      sortedItems.sort((Item a, Item b) => b.createdAt.compareTo(a.createdAt));
+      itemLists.add(itemList.copyWith(items: sortedItems));
     }
+
+    // make ascending sort
+    itemLists
+        .sort((ItemList a, ItemList b) => b.createdAt.compareTo(a.createdAt));
     return itemLists;
   }
 

@@ -27,6 +27,4 @@ final starredItemListProvider =
   return ItemListController(ItemList(items: items), ref);
 });
 
-final currentTabItemListProvider =
-    StateProvider<ItemList>((ref) => ItemList());
-
+final currentTabItemListProvider = StateProvider<ItemList>((ref) => ItemList());
